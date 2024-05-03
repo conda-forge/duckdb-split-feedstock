@@ -84,6 +84,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--cli-green.svg)](https://anaconda.org/conda-forge/duckdb-cli) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-cli.svg)](https://anaconda.org/conda-forge/duckdb-cli) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-cli.svg)](https://anaconda.org/conda-forge/duckdb-cli) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-cli.svg)](https://anaconda.org/conda-forge/duckdb-cli) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--json-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-json) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-json.svg)](https://anaconda.org/conda-forge/duckdb-extension-json) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-json.svg)](https://anaconda.org/conda-forge/duckdb-extension-json) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-json.svg)](https://anaconda.org/conda-forge/duckdb-extension-json) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libduckdb-green.svg)](https://anaconda.org/conda-forge/libduckdb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libduckdb.svg)](https://anaconda.org/conda-forge/libduckdb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libduckdb.svg)](https://anaconda.org/conda-forge/libduckdb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libduckdb.svg)](https://anaconda.org/conda-forge/libduckdb) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libduckdb--devel-green.svg)](https://anaconda.org/conda-forge/libduckdb-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libduckdb-devel.svg)](https://anaconda.org/conda-forge/libduckdb-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libduckdb-devel.svg)](https://anaconda.org/conda-forge/libduckdb-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libduckdb-devel.svg)](https://anaconda.org/conda-forge/libduckdb-devel) |
 
@@ -97,16 +98,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `duckdb-cli, libduckdb, libduckdb-devel` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `duckdb-cli, duckdb-extension-json, libduckdb, libduckdb-devel` can be installed with `conda`:
 
 ```
-conda install duckdb-cli libduckdb libduckdb-devel
+conda install duckdb-cli duckdb-extension-json libduckdb libduckdb-devel
 ```
 
 or with `mamba`:
 
 ```
-mamba install duckdb-cli libduckdb libduckdb-devel
+mamba install duckdb-cli duckdb-extension-json libduckdb libduckdb-devel
 ```
 
 It is possible to list all of the versions of `duckdb-cli` available on your platform with `conda`:
