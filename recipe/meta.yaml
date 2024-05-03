@@ -71,6 +71,25 @@ outputs:
     test:
       commands:
         - duckdb -version
+  - name: duckdb-extension-json
+    script: install-extension-json.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - cmake
+        - ninja
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - find "${PREFIX}"/duckdb/extensions/v{{ version }}/ -type f -name 'json.duckdb_extension' | grep '.'
+          - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "json" ]; then exit 0; else exit 1; fi
+      requires:
+        - duckdb-cli
+        - jq
 
 about:
   home: https://www.duckdb.org/
