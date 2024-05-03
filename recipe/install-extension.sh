@@ -2,12 +2,8 @@
 
 set -euxo pipefail
 
-# Check if we have access to the output name.
-env | grep 'duckdb-extension-'
-env
-
-# TODO: Retrieve the extension name dynamically.
-EXTENSION_NAME='httpfs'
+PKG_PREFIX='duckdb-extension-'
+EXTENSION_NAME="${PKG_NAME#$PKG_PREFIX}"
 
 DUCKDB_ARCH="$(cat ./build/.duckdb_arch)"
 DUCKDB_VERSION="v${PKG_VERSION}"

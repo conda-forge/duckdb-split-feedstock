@@ -76,7 +76,7 @@ outputs:
       commands:
         - duckdb -version
   - name: duckdb-extension-json
-    script: install-extension-json.sh
+    script: install-extension.sh
     requirements:
       build:
         - {{ compiler('c') }}
@@ -96,7 +96,7 @@ outputs:
         - duckdb-cli
         - jq
   - name: duckdb-extension-httpfs
-    script: install-extension-httpfs.sh
+    script: install-extension.sh
     requirements:
       build:
         - {{ compiler('c') }}
