@@ -18,7 +18,7 @@ else
 fi
 
 # Persist DuckDB architecture for extension installation scripts.
-echo "${DUCKDB_ARCH}" > "$(pwd)"/.duckdb_arch
+echo "${DUCKDB_ARCH}" > "$(pwd)/.duckdb_arch"
 
 BUILD_EXTENSIONS='json;httpfs'
 SKIP_EXTENSIONS='parquet;jemalloc'
