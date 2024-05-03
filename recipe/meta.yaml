@@ -37,6 +37,8 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
+      host:
+        - openssl
     test:
       commands:
         - test -f $PREFIX/lib/libduckdb${SHLIB_EXT}
