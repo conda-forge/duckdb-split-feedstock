@@ -90,7 +90,6 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-          - find "${PREFIX}"/duckdb/extensions/v{{ version }}/ -type f -name 'json.duckdb_extension' | grep '.'
           - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "json" ]; then exit 0; else exit 1; fi
       requires:
         - duckdb-cli
@@ -111,8 +110,178 @@ outputs:
         - openssl
     test:
       commands:
-          - find "${PREFIX}"/duckdb/extensions/v{{ version }}/ -type f -name 'httpfs.duckdb_extension' | grep '.'
           - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "httpfs" ]; then exit 0; else exit 1; fi
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-autocomplete
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "autocomplete" ]; then exit 0; else exit 1; fi
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-excel
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "excel" ]; then exit 0; else exit 1; fi
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-fts
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "fts" ]; then exit 0; else exit 1; fi
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-icu
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "icu" ]; then exit 0; else exit 1; fi
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-inet
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "inet" ]; then exit 0; else exit 1; fi
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-sqlsmith
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "sqlsmith" ]; then exit 0; else exit 1; fi
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-tpcds
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "tpcds" ]; then exit 0; else exit 1; fi
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-tpch
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "tpch" ]; then exit 0; else exit 1; fi
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-jemalloc
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "jemalloc" ]; then exit 0; else exit 1; fi
       requires:
         - duckdb-cli
         - jq
