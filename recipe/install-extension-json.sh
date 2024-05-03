@@ -2,6 +2,10 @@
 
 set -euxo pipefail
 
+# Check if we have access to the output name.
+env | grep 'duckdb-extension-'
+env
+
 # TODO: Retrieve the extension name dynamically.
 EXTENSION_NAME='json'
 
