@@ -24,9 +24,9 @@ fi
 # Persist DuckDB architecture for extension installation scripts.
 echo "${DUCKDB_ARCH}" > "$(pwd)/.duckdb_arch"
 
-BUILD_EXTENSIONS='json;httpfs;autocomplete;excel;fts;icu;inet;jemalloc;tpcds;tpch'
+BUILD_EXTENSIONS='json;httpfs;autocomplete;excel;fts;icu;inet;tpcds;tpch'
 # We skip the parquet extension because it's compiled into libduckdb by default.
-SKIP_EXTENSIONS='parquet'
+SKIP_EXTENSIONS='parquet;jemalloc'
 
 export OPENSSL_ROOT_DIR="${PREFIX}"
 
