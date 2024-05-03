@@ -108,6 +108,7 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
+        - openssl
     test:
       commands:
           - find "${PREFIX}"/duckdb/extensions/v{{ version }}/ -type f -name 'httpfs.duckdb_extension' | grep '.'
