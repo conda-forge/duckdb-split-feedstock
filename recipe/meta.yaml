@@ -95,6 +95,26 @@ outputs:
       requires:
         - duckdb-cli
         - jq
+  - name: duckdb-extension-httpfs
+    script: install-extension-httpfs.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - find "${PREFIX}"/duckdb/extensions/v{{ version }}/ -type f -name 'httpfs.duckdb_extension' | grep '.'
+          - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "httpfs" ]; then exit 0; else exit 1; fi
+      requires:
+        - duckdb-cli
+        - jq
 
 about:
   home: https://www.duckdb.org/
