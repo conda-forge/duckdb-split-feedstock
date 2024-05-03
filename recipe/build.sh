@@ -7,6 +7,8 @@ pushd build
 
 if [[ "${target_platform}" == "linux-64" ]]; then
     DUCKDB_ARCH='linux_amd64'
+elif [[ "${target_platform}" == "linux-ppc64le" ]]; then
+    DUCKDB_ARCH='linux_amd64'
 elif [[ "${target_platform}" == "linux-aarch64" ]]; then
     DUCKDB_ARCH='linux_arm64'
 elif [[ "${target_platform}" == "osx-64" ]]; then
