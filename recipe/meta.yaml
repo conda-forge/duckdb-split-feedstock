@@ -90,7 +90,7 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-          - if [ "$(duckdb -json -c "set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');" | jq -r '.[].extension_name')" = "json" ]; then exit 0; else exit 1; fi
+          - {{ RECIPE_DIR }}/test-extension.sh
       requires:
         - duckdb-cli
         - jq
