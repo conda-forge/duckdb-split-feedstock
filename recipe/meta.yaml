@@ -105,9 +105,9 @@ outputs:
         - ninja
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
+        - openssl
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
-        - openssl
     test:
       commands:
           - {{ RECIPE_DIR }}/test-extension.sh
