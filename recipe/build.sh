@@ -8,7 +8,10 @@ pushd build
 if [[ "${target_platform}" == "linux-64" ]]; then
     DUCKDB_ARCH='linux_amd64'
 elif [[ "${target_platform}" == "linux-ppc64le" ]]; then
-    DUCKDB_ARCH='linux_amd64'
+    DUCKDB_ARCH='linux_ppc64le'
+    export CFLAGS="${CXXFLAGS/-fno-plt/}"
+    export CXXFLAGS="${CXXFLAGS/-fno-plt/}"
+    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_PLATFORM=linux_ppc64le -DDUCKDB_EXPLICIT_PLATFORM=linux_ppc64le"
 elif [[ "${target_platform}" == "linux-aarch64" ]]; then
     DUCKDB_ARCH='linux_arm64'
 elif [[ "${target_platform}" == "osx-64" ]]; then
