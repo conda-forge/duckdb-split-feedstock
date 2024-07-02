@@ -137,25 +137,6 @@ outputs:
       requires:
         - duckdb-cli
         - jq
-  - name: duckdb-extension-excel
-    script: install-extension.sh
-    requirements:
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - {{ stdlib("c") }}
-        - cmake
-        - ninja
-      host:
-        - {{ pin_subpackage("libduckdb", exact=True) }}
-      run:
-        - {{ pin_subpackage("libduckdb", exact=True) }}
-    test:
-      commands:
-          - {{ RECIPE_DIR }}/test-extension.sh
-      requires:
-        - duckdb-cli
-        - jq
   - name: duckdb-extension-fts
     script: install-extension.sh
     requirements:
