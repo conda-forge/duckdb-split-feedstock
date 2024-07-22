@@ -5,7 +5,7 @@ set -euxo pipefail
 PKG_PREFIX='duckdb-extension-'
 EXTENSION_NAME="${PKG_NAME#$PKG_PREFIX}"
 
-QUERY="set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)');"
+QUERY="set extension_directory='${PREFIX}/duckdb/extensions'; select extension_name from duckdb_extensions() where (installed and install_path != '(BUILT-IN)' and extension_name != 'shell');"
 QUERY_RESULT="$(duckdb -json -c "${QUERY}")"
 
 if [[ $(echo "${QUERY_RESULT}" | jq -r '.[].extension_name') == "${EXTENSION_NAME}" ]]; then

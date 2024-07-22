@@ -11,6 +11,7 @@ source:
   sha256: 04e472e646f5cadd0a3f877a143610674b0d2bcf9f4102203ac3c3d02f1c5f26
   patches:
     - 0001-Dynamically-link-the-cli.patch
+    - 0001-Remove-code-signature-before-applying-metadata-to-ex.patch
 
 build:
   number: 1
@@ -88,6 +89,8 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - python *
+        - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -107,6 +110,8 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - python *
+        - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
         - openssl
@@ -127,6 +132,8 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - python *
+        - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -146,6 +153,8 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - python *
+        - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -165,6 +174,8 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - python *
+        - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -184,6 +195,8 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - python *
+        - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -203,6 +216,8 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - python *
+        - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -222,6 +237,8 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - python *
+        - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
