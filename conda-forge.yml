@@ -1,8 +1,9 @@
 github:
   branch_name: main
   tooling_branch_name: main
-conda_build:
-  error_overlinking: true
+# conda_build:
+#  # See https://github.com/conda-forge/rust-activation-feedstock/issues/58
+#  error_overlinking: true
 conda_forge_output_validation: true
 bot:
   automerge: true
