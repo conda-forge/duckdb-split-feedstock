@@ -11,10 +11,11 @@ source:
   sha256: 04e472e646f5cadd0a3f877a143610674b0d2bcf9f4102203ac3c3d02f1c5f26
   patches:
     - 0001-Dynamically-link-the-cli.patch
+    - 0001-Remove-code-signature-before-applying-metadata-to-ex.patch
 
 build:
-  number: 0
-  skip: true  # [win]
+  number: 1
+  skip: true  # [win or ppc64le]
 
 requirements:
   build:
@@ -23,6 +24,8 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
+  host:
+    - openssl
 
 outputs:
   - name: libduckdb
@@ -37,6 +40,8 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
+      host:
+        - openssl
     test:
       commands:
         - test -f $PREFIX/lib/libduckdb${SHLIB_EXT}
@@ -75,6 +80,175 @@ outputs:
     test:
       commands:
         - duckdb -version
+  - name: duckdb-extension-json
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-httpfs
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+        - openssl
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-autocomplete
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-fts
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-icu
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-inet
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-tpcds
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-tpch
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+          - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
 
 about:
   home: https://www.duckdb.org/
@@ -92,3 +266,4 @@ about:
 extra:
   recipe-maintainers:
     - xhochy
+    - janjagusch

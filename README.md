@@ -50,13 +50,6 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>linux_ppc64le</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=21046&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/duckdb-split-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>osx_64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=21046&branchName=main">
@@ -84,6 +77,14 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--cli-green.svg)](https://anaconda.org/conda-forge/duckdb-cli) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-cli.svg)](https://anaconda.org/conda-forge/duckdb-cli) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-cli.svg)](https://anaconda.org/conda-forge/duckdb-cli) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-cli.svg)](https://anaconda.org/conda-forge/duckdb-cli) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--autocomplete-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-autocomplete) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-autocomplete.svg)](https://anaconda.org/conda-forge/duckdb-extension-autocomplete) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-autocomplete.svg)](https://anaconda.org/conda-forge/duckdb-extension-autocomplete) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-autocomplete.svg)](https://anaconda.org/conda-forge/duckdb-extension-autocomplete) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--fts-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-fts) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-fts.svg)](https://anaconda.org/conda-forge/duckdb-extension-fts) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-fts.svg)](https://anaconda.org/conda-forge/duckdb-extension-fts) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-fts.svg)](https://anaconda.org/conda-forge/duckdb-extension-fts) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--httpfs-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-httpfs) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-httpfs.svg)](https://anaconda.org/conda-forge/duckdb-extension-httpfs) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-httpfs.svg)](https://anaconda.org/conda-forge/duckdb-extension-httpfs) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-httpfs.svg)](https://anaconda.org/conda-forge/duckdb-extension-httpfs) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--icu-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-icu) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-icu.svg)](https://anaconda.org/conda-forge/duckdb-extension-icu) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-icu.svg)](https://anaconda.org/conda-forge/duckdb-extension-icu) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-icu.svg)](https://anaconda.org/conda-forge/duckdb-extension-icu) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--inet-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-inet) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-inet.svg)](https://anaconda.org/conda-forge/duckdb-extension-inet) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-inet.svg)](https://anaconda.org/conda-forge/duckdb-extension-inet) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-inet.svg)](https://anaconda.org/conda-forge/duckdb-extension-inet) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--json-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-json) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-json.svg)](https://anaconda.org/conda-forge/duckdb-extension-json) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-json.svg)](https://anaconda.org/conda-forge/duckdb-extension-json) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-json.svg)](https://anaconda.org/conda-forge/duckdb-extension-json) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--tpcds-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-tpcds) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-tpcds.svg)](https://anaconda.org/conda-forge/duckdb-extension-tpcds) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-tpcds.svg)](https://anaconda.org/conda-forge/duckdb-extension-tpcds) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-tpcds.svg)](https://anaconda.org/conda-forge/duckdb-extension-tpcds) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--tpch-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-tpch) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-tpch.svg)](https://anaconda.org/conda-forge/duckdb-extension-tpch) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-tpch.svg)](https://anaconda.org/conda-forge/duckdb-extension-tpch) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-tpch.svg)](https://anaconda.org/conda-forge/duckdb-extension-tpch) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libduckdb-green.svg)](https://anaconda.org/conda-forge/libduckdb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libduckdb.svg)](https://anaconda.org/conda-forge/libduckdb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libduckdb.svg)](https://anaconda.org/conda-forge/libduckdb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libduckdb.svg)](https://anaconda.org/conda-forge/libduckdb) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libduckdb--devel-green.svg)](https://anaconda.org/conda-forge/libduckdb-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libduckdb-devel.svg)](https://anaconda.org/conda-forge/libduckdb-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libduckdb-devel.svg)](https://anaconda.org/conda-forge/libduckdb-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libduckdb-devel.svg)](https://anaconda.org/conda-forge/libduckdb-devel) |
 
@@ -97,16 +98,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `duckdb-cli, libduckdb, libduckdb-devel` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `duckdb-cli, duckdb-extension-autocomplete, duckdb-extension-fts, duckdb-extension-httpfs, duckdb-extension-icu, duckdb-extension-inet, duckdb-extension-json, duckdb-extension-tpcds, duckdb-extension-tpch, libduckdb, libduckdb-devel` can be installed with `conda`:
 
 ```
-conda install duckdb-cli libduckdb libduckdb-devel
+conda install duckdb-cli duckdb-extension-autocomplete duckdb-extension-fts duckdb-extension-httpfs duckdb-extension-icu duckdb-extension-inet duckdb-extension-json duckdb-extension-tpcds duckdb-extension-tpch libduckdb libduckdb-devel
 ```
 
 or with `mamba`:
 
 ```
-mamba install duckdb-cli libduckdb libduckdb-devel
+mamba install duckdb-cli duckdb-extension-autocomplete duckdb-extension-fts duckdb-extension-httpfs duckdb-extension-icu duckdb-extension-inet duckdb-extension-json duckdb-extension-tpcds duckdb-extension-tpch libduckdb libduckdb-devel
 ```
 
 It is possible to list all of the versions of `duckdb-cli` available on your platform with `conda`:
@@ -201,5 +202,6 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@janjagusch](https://github.com/janjagusch/)
 * [@xhochy](https://github.com/xhochy/)
 
