@@ -12,9 +12,10 @@ source:
   patches:
     - 0001-Dynamically-link-the-cli.patch
     - 0001-Remove-code-signature-before-applying-metadata-to-ex.patch
+    - 0002-fix-exports.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win or ppc64le]
 
 requirements:
