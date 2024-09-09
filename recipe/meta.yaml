@@ -1,5 +1,5 @@
 {% set name = "duckdb" %}
-{% set version = "1.0.0" %}
+{% set version = "1.1.0" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,14 +8,14 @@ package:
 source:
   # (!!) Please also update the git used for OVERRIDE_GIT_DESCRIBE in the build scripts.
   url: https://github.com/duckdb/duckdb/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 04e472e646f5cadd0a3f877a143610674b0d2bcf9f4102203ac3c3d02f1c5f26
+  sha256: d9be2c6d3a5ebe2b3d33044fb2cb535bb0bd972a27ae38c4de5e1b4caa4bf68d
   patches:
     - 0001-Dynamically-link-the-cli.patch
     - 0001-Remove-code-signature-before-applying-metadata-to-ex.patch
     - 0002-fix-exports.patch
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win or ppc64le]
 
 requirements:
@@ -98,7 +98,7 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-          - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh
       requires:
         - duckdb-cli
         - jq
@@ -120,7 +120,7 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-          - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh
       requires:
         - duckdb-cli
         - jq
@@ -141,7 +141,7 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-          - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh
       requires:
         - duckdb-cli
         - jq
@@ -162,7 +162,7 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-          - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh
       requires:
         - duckdb-cli
         - jq
@@ -183,7 +183,7 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-          - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh
       requires:
         - duckdb-cli
         - jq
@@ -204,7 +204,7 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-          - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh
       requires:
         - duckdb-cli
         - jq
@@ -225,7 +225,7 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-          - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh
       requires:
         - duckdb-cli
         - jq
@@ -246,7 +246,7 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-          - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh
       requires:
         - duckdb-cli
         - jq
