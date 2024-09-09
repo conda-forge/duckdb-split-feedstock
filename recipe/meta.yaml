@@ -11,8 +11,7 @@ source:
   sha256: d9be2c6d3a5ebe2b3d33044fb2cb535bb0bd972a27ae38c4de5e1b4caa4bf68d
   patches:
     - 0001-Dynamically-link-the-cli.patch
-    - 0001-Remove-code-signature-before-applying-metadata-to-ex.patch
-    - 0002-fix-exports.patch
+    - 0002-Remove-code-signature-before-applying-metadata-to-ex.patch
 
 build:
   number: 0
