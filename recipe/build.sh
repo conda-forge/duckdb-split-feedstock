@@ -27,7 +27,7 @@ fi
 # Persist DuckDB architecture for extension installation scripts.
 echo "${DUCKDB_ARCH}" > "$(pwd)/.duckdb_arch"
 
-BUILD_EXTENSIONS='json;httpfs;autocomplete;fts;icu;inet;tpcds;tpch'
+BUILD_EXTENSIONS='json;httpfs;autocomplete;fts;icu;tpcds;tpch'
 # We skip the parquet extension because it's compiled into libduckdb by default.
 SKIP_EXTENSIONS='parquet;jemalloc'
 
@@ -36,7 +36,7 @@ export OPENSSL_ROOT_DIR="${PREFIX}"
 cmake ${CMAKE_ARGS} \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
-    -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-g4a89d97 \
+    -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-gfa5c2fe \
     -DBUILD_EXTENSIONS="${BUILD_EXTENSIONS}" \
     -DSKIP_EXTENSIONS="${SKIP_EXTENSIONS}" \
     -DDISABLE_BUILTIN_EXTENSIONS=ON \
