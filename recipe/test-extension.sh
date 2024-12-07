@@ -9,7 +9,11 @@ QUERY="set extension_directory='${PREFIX}/duckdb/extensions'; select extension_n
 QUERY_RESULT="$(duckdb -json -c "${QUERY}")"
 
 if [[ $(echo "${QUERY_RESULT}" | jq -r '.[].extension_name') == "${EXTENSION_NAME}" ]]; then
-    exit 0
+    QUERY="set extension_directory='${PREFIX}/duckdb/extensions'; LOAD ${EXTENSION_NAME};"
+    echo "Test whether the extension loads in unsigned mode"
+    duckdb -unsigned -json -c "${QUERY}"
+    echo "Test whether the extension loads in default mode"
+    duckdb -json -c "${QUERY}"
 else
     exit 1
 fi
