@@ -82,6 +82,8 @@ outputs:
         - duckdb -version
   - name: duckdb-extension-json
     script: install-extension.sh
+    build:
+      binary_relocation: False
     requirements:
       build:
         - {{ compiler('c') }}
@@ -103,6 +105,8 @@ outputs:
         - jq
   - name: duckdb-extension-httpfs
     script: install-extension.sh
+    build:
+      binary_relocation: False
     requirements:
       build:
         - {{ compiler('c') }}
@@ -125,6 +129,8 @@ outputs:
         - jq
   - name: duckdb-extension-autocomplete
     script: install-extension.sh
+    build:
+      binary_relocation: False
     requirements:
       build:
         - {{ compiler('c') }}
@@ -145,6 +151,8 @@ outputs:
         - duckdb-cli
         - jq
   - name: duckdb-extension-fts
+    build:
+      binary_relocation: False
     script: install-extension.sh
     requirements:
       build:
@@ -166,6 +174,8 @@ outputs:
         - duckdb-cli
         - jq
   - name: duckdb-extension-icu
+    build:
+      binary_relocation: False
     script: install-extension.sh
     requirements:
       build:
@@ -187,6 +197,8 @@ outputs:
         - duckdb-cli
         - jq
   - name: duckdb-extension-tpcds
+    build:
+      binary_relocation: False
     script: install-extension.sh
     requirements:
       build:
@@ -208,6 +220,8 @@ outputs:
         - duckdb-cli
         - jq
   - name: duckdb-extension-tpch
+    build:
+      binary_relocation: False
     script: install-extension.sh
     requirements:
       build:
