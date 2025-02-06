@@ -34,14 +34,14 @@ cat > $PWD/bundled_extensions.cmake <<EOF
 #
 ## Extensions that are linked
 #
+duckdb_extension_load(icu)
+duckdb_extension_load(json)
 duckdb_extension_load(parquet)
+duckdb_extension_load(autocomplete)
 
 #
 ## Extensions that are not linked
 #
-duckdb_extension_load(icu DONT_LINK)
-duckdb_extension_load(json DONT_LINK)
-duckdb_extension_load(autocomplete DONT_LINK)
 duckdb_extension_load(tpcds DONT_LINK)
 duckdb_extension_load(tpch DONT_LINK)
 EOF
