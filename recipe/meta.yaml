@@ -103,57 +103,10 @@ outputs:
       requires:
         - duckdb-cli
         - jq
-  - name: duckdb-extension-httpfs
-    script: install-extension.sh
-    build:
-      binary_relocation: false
-    requirements:
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - {{ stdlib("c") }}
-        - cmake
-        - ninja
-        - python *
-        - macholib
-      host:
-        - {{ pin_subpackage("libduckdb", exact=True) }}
-        - openssl
-      run:
-        - {{ pin_subpackage("libduckdb", exact=True) }}
-    test:
-      commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
-      requires:
-        - duckdb-cli
-        - jq
   - name: duckdb-extension-autocomplete
     script: install-extension.sh
     build:
       binary_relocation: false
-    requirements:
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - {{ stdlib("c") }}
-        - cmake
-        - ninja
-        - python *
-        - macholib
-      host:
-        - {{ pin_subpackage("libduckdb", exact=True) }}
-      run:
-        - {{ pin_subpackage("libduckdb", exact=True) }}
-    test:
-      commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
-      requires:
-        - duckdb-cli
-        - jq
-  - name: duckdb-extension-fts
-    build:
-      binary_relocation: false
-    script: install-extension.sh
     requirements:
       build:
         - {{ compiler('c') }}

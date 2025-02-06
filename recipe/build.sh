@@ -27,19 +27,32 @@ fi
 # Persist DuckDB architecture for extension installation scripts.
 echo "${DUCKDB_ARCH}" > "$(pwd)/.duckdb_arch"
 
-BUILD_EXTENSIONS='json;httpfs;autocomplete;fts;icu;tpcds;tpch'
-# We skip the parquet extension because it's compiled into libduckdb by default.
-SKIP_EXTENSIONS='parquet;jemalloc'
-
 export OPENSSL_ROOT_DIR="${PREFIX}"
+
+# This is the extension config that is used to build / test
+cat > $PWD/bundled_extensions.cmake <<EOF
+#
+## Extensions that are linked
+#
+duckdb_extension_load(parquet)
+
+#
+## Extensions that are not linked
+#
+duckdb_extension_load(icu DONT_LINK)
+duckdb_extension_load(json DONT_LINK)
+duckdb_extension_load(autocomplete DONT_LINK)
+duckdb_extension_load(tpcds DONT_LINK)
+duckdb_extension_load(tpch DONT_LINK)
+EOF
 
 cmake ${CMAKE_ARGS} \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
     -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-gfa5c2fe \
-    -DBUILD_EXTENSIONS="${BUILD_EXTENSIONS}" \
-    -DSKIP_EXTENSIONS="${SKIP_EXTENSIONS}" \
-    -DDISABLE_BUILTIN_EXTENSIONS=ON \
+    -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
+    -DENABLE_EXTENSION_AUTOLOADING=1 \
+    -DENABLE_EXTENSION_AUTOINSTALL=1 \
     ..
 
 ninja
