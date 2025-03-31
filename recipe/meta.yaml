@@ -81,6 +81,8 @@ outputs:
       commands:
         - duckdb -version
         - {{ RECIPE_DIR }}/test-builtin-extensions.sh
+      requires:
+        - jq
   - name: duckdb-extension-json
     # Empty placeholder package as this now built-in
     build:
