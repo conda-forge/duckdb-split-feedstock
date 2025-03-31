@@ -80,6 +80,16 @@ outputs:
     test:
       commands:
         - duckdb -version
+        - {{ RECIPE_DIR }}/test-builtin-extensions.sh
+  - name: duckdb-extension-json
+    # Empty placeholder package as this now built-in
+    noarch: generic
+    requirements:
+      run:
+        - libduckdb {{ version }}.*
+    test:
+      commands:
+        - exit 0
   - name: duckdb-extension-tpcds
     build:
       binary_relocation: false
