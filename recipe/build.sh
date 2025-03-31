@@ -49,7 +49,7 @@ EOF
 cmake ${CMAKE_ARGS} \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
-    -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-gfa5c2fe \
+    -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-g8e52ec4 \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
     ..
 
