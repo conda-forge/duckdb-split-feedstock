@@ -14,7 +14,7 @@ source:
     - 0002-Remove-code-signature-before-applying-metadata-to-ex.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win or ppc64le]
 
 requirements:
