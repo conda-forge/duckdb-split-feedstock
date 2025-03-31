@@ -51,8 +51,6 @@ cmake ${CMAKE_ARGS} \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
     -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-gfa5c2fe \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
-    -DENABLE_EXTENSION_AUTOLOADING=1 \
-    -DENABLE_EXTENSION_AUTOINSTALL=1 \
     ..
 
 ninja
