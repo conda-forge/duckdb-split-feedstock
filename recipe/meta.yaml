@@ -88,6 +88,8 @@ outputs:
     build:
       noarch: generic
     requirements:
+      host:
+        - libduckdb {{ version }}.*
       run:
         - libduckdb {{ version }}.*
     test:
