@@ -12,6 +12,8 @@ fi
 
 QUERY="select extension_name from duckdb_extensions() where (installed and install_mode = 'STATICALLY_LINKED');"
 
+# List the extensions
+duckdb -c "${QUERY}"
 # Check that the built-in extensions are as expected.
 duckdb -json -c "${QUERY}" | jq -r -e "
   map(.extension_name) as \$actual
