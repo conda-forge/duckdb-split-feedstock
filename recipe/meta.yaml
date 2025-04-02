@@ -85,13 +85,20 @@ outputs:
         - jq
   - name: duckdb-extension-json
     # Empty placeholder package as this now built-in
-    build:
-      noarch: generic
+    # We need to use the same dependencies as in the main build to make it work in cross-compilation
     requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
       host:
-        - libduckdb {{ version }}.*
+        - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
-        - libduckdb {{ version }}.*
+        - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
         - exit 0
