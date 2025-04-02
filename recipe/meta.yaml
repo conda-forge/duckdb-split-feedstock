@@ -84,6 +84,7 @@ outputs:
       requires:
         - jq
   - name: duckdb-extension-json
+    script: noop.sh
     # Empty placeholder package as this now built-in
     # We need to use the same dependencies as in the main build to make it work in cross-compilation
     requirements:
@@ -93,7 +94,6 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - python *
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
