@@ -6,12 +6,18 @@ package:
   version: {{ version }}
 
 source:
-  # (!!) Please also update the git used for OVERRIDE_GIT_DESCRIBE in the build scripts.
-  url: https://github.com/duckdb/duckdb/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 481a05d59cb8eaf4d78e5495ab0c99ed53e3b41e84aeaf24eef4144f2c60d1cc
-  patches:
-    - 0001-Dynamically-link-the-cli.patch
-    - 0002-Remove-code-signature-before-applying-metadata-to-ex.patch
+    # (!!) Please also update the git used for OVERRIDE_GIT_DESCRIBE in the build scripts.
+  - url: https://github.com/duckdb/duckdb/archive/refs/tags/v{{ version }}.tar.gz
+    sha256: 481a05d59cb8eaf4d78e5495ab0c99ed53e3b41e84aeaf24eef4144f2c60d1cc
+    patches:
+      - 0001-Dynamically-link-the-cli.patch
+      - 0002-Remove-code-signature-before-applying-metadata-to-ex.patch
+  - url: https://github.com/duckdb/duckdb-httpfs/archive/2b2f927b9645f3881c6f2f108dd1762697d9a912.tar.gz
+    sha256: 0db9112e55489755add08cecd4cbe0803b67c984dc1fe6e67c8a544bb67f94c3
+    folder: extension/httpfs
+  - url: https://github.com/duckdb/duckdb-fts/archive/3aa6a180b9c101d78070f5f7214c27552bb091c8.tar.gz
+    sha256: 3cc83386a0b9e367b743cc6d4c5dbea233439077cae2a92c1ff126e40abb2912
+    folder: extension/fts
 
 build:
   number: 0
@@ -117,6 +123,54 @@ outputs:
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+        - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-httpfs
+    script: install-extension.sh
+    build:
+      binary_relocation: False
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+        - openssl
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+        - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-fts
+    script: install-extension.sh
+    build:
+      binary_relocation: False
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+        - openssl
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
