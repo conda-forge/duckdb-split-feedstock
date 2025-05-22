@@ -30,7 +30,9 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
+    - icu
   host:
+    - icu
     - openssl
 
 outputs:
@@ -46,8 +48,10 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
+        - icu
       host:
         - openssl
+        - icu
     test:
       commands:
         - test -f $PREFIX/lib/libduckdb${SHLIB_EXT}
