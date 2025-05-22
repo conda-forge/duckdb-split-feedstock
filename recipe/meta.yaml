@@ -47,7 +47,6 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
-        - icu
       host:
         - openssl
         - icu
