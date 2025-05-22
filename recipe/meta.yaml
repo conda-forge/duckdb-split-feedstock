@@ -30,7 +30,6 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
-    - icu
   host:
     - icu
     - openssl
