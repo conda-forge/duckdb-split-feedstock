@@ -20,7 +20,7 @@ source:
     folder: extension/fts
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win or ppc64le]
 
 requirements:
