@@ -1,5 +1,5 @@
 {% set name = "duckdb" %}
-{% set version = "1.3.0" %}
+{% set version = "1.3.1" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,7 +8,7 @@ package:
 source:
     # (!!) Please also update the git used for OVERRIDE_GIT_DESCRIBE in the build scripts.
   - url: https://github.com/duckdb/duckdb/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 9c8c5ac0d26f2a97d81867485cf501fd0491ad6ecaf593118cc6122f2fc8924c
+    sha256: 6735519dc4a2deba55f1c348d5c5299fe204224a830c4b2ab1d323009f1ba4ef
     patches:
       - 0001-Dynamically-link-the-cli.patch
       - 0002-Remove-code-signature-before-applying-metadata-to-ex.patch
@@ -20,7 +20,7 @@ source:
     folder: extension/fts
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win or ppc64le]
 
 requirements:
