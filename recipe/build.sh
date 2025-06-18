@@ -56,7 +56,7 @@ cmake ${CMAKE_ARGS} \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
     -DOVERRIDE_GIT_DESCRIBE="$OVERRIDE_GIT_DESCRIBE" \
-    -DDUCKDB_EXTENSION_CONFIGS="$PWD/../bundled_extensions.cmake" \
+    -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
     -DWITH_INTERNAL_ICU=OFF \
     ..
 
