@@ -22,11 +22,11 @@ echo duckdb_extension_load^(fts DONT_LINK^)
 ) > "%CD%\bundled_extensions.cmake"
 
 python scripts/windows_ci.py
-cmake \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_GENERATOR_PLATFORM=x64 \
-    -DDUCKDB_EXTENSION_CONFIGS="%CD%/bundled_extensions.cmake" \
-    -DDISABLE_UNITY=1 \
-    -DOVERRIDE_GIT_DESCRIBE="%OVERRIDE_GIT_DESCRIBE%" \
-    -DWITH_INTERNAL_ICU=OFF
+cmake %CMAKE_ARGS% ^
+  -DCMAKE_BUILD_TYPE=Release ^
+  -DCMAKE_GENERATOR_PLATFORM=x64 ^
+  -DDUCKDB_EXTENSION_CONFIGS="%CD%/bundled_extensions.cmake" ^
+  -DDISABLE_UNITY=1 ^
+  -DOVERRIDE_GIT_DESCRIBE="%OVERRIDE_GIT_DESCRIBE%" ^
+  -DWITH_INTERNAL_ICU=OFF
 cmake --build . --config Release --parallel
