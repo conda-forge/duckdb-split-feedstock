@@ -29,9 +29,9 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - cmake
-    - ninja  # [not win]
+    - ninja    # [not win]
   host:
-    - icu
+    - icu      # [not win]
     - openssl
 
 outputs:
@@ -53,7 +53,7 @@ outputs:
         - python *  # [win]
       host:
         - openssl
-        - icu
+        - icu       # [not win]
     test:
       commands:
         - test -f $PREFIX/lib/libduckdb${SHLIB_EXT}  # [not win]
