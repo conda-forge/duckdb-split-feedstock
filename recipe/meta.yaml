@@ -10,7 +10,7 @@ source:
   - url: https://github.com/duckdb/duckdb/archive/refs/tags/v{{ version }}.tar.gz
     sha256: 6735519dc4a2deba55f1c348d5c5299fe204224a830c4b2ab1d323009f1ba4ef
     patches:
-      - 0001-Dynamically-link-the-cli.patch
+      - 0001-Dynamically-link-the-cli.patch  # [unix]
       - 0002-Remove-code-signature-before-applying-metadata-to-ex.patch
   - url: https://github.com/duckdb/duckdb-httpfs/archive/39779f89b16d0a35f04d3cfaf868e6366a2102f0.tar.gz
     sha256: b90aff0ca62209dee33e4fe8652164798cdc086cefd73973f02e7a64c2d37df6
@@ -20,8 +20,8 @@ source:
     folder: extension/fts
 
 build:
-  number: 1
-  skip: true  # [win or ppc64le]
+  number: 2
+  skip: true  # [ppc64le]
 
 requirements:
   build:
@@ -29,66 +29,77 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - cmake
-    - ninja
+    - ninja  # [not win]
   host:
     - icu
     - openssl
 
 outputs:
   - name: libduckdb
-    script: install-lib.sh
     build:
       run_exports:
         - {{ pin_subpackage("libduckdb", max_pin="x.x.x") }}
+    files:
+      - lib/libduckdb*          # [not win]
+      - Library/bin/duckdb.dll  # [win]
+      - Library/bin/duckdb.lib  # [win]
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - cmake
-        - ninja
+        - ninja     # [not win]
+        - python *  # [win]
       host:
         - openssl
         - icu
     test:
       commands:
-        - test -f $PREFIX/lib/libduckdb${SHLIB_EXT}
+        - test -f $PREFIX/lib/libduckdb${SHLIB_EXT}  # [not win]
   - name: libduckdb-devel
-    script: install-headers.sh
     build:
       run_exports:
         - {{ pin_subpackage("libduckdb", max_pin="x.x.x") }}
+    files:
+      - include/duckdb*.h          # [unix]
+      - lib/cmake/duckdb           # [unix]
+      - Library/include/duckdb*.h  # [win]
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - cmake
-        - ninja
+        - ninja     # [not win]
+        - python *  # [win]
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - test -f $PREFIX/include/duckdb.h
+        - test -f $PREFIX/include/duckdb.h  # [not win]
   - name: duckdb-cli
-    script: install-cli.sh
+    files:
+      - bin/duckdb              # [unix]
+      - Library\bin\duckdb.exe  # [win]
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - cmake
-        - ninja
+        - ninja     # [not win]
+        - python *  # [win]
       host:
-        - {{ pin_subpackage("libduckdb", exact=True) }}
+        - {{ pin_subpackage("libduckdb", exact=True) }}  # [not win]
       run:
-        - {{ pin_subpackage("libduckdb", exact=True) }}
+        - {{ pin_subpackage("libduckdb", exact=True) }}  # [not win]
     test:
       commands:
         - duckdb -version
-        - {{ RECIPE_DIR }}/test-builtin-extensions.sh
+        - {{ RECIPE_DIR }}/test-builtin-extensions.sh  # [not win]
       requires:
         - jq
   - name: duckdb-extension-json
@@ -101,7 +112,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
         - cmake
-        - ninja
+        - ninja  # [not win]
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
@@ -112,6 +123,7 @@ outputs:
         - exit 0
   - name: duckdb-extension-tpcds
     build:
+      skip: true  # [win]
       binary_relocation: false
     script: install-extension.sh
     requirements:
@@ -120,7 +132,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
         - cmake
-        - ninja
+        - ninja  # [not win]
         - python *
         - macholib
       host:
@@ -129,7 +141,7 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh  # [not win]
       requires:
         - duckdb-cli
         - jq
@@ -143,7 +155,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
         - cmake
-        - ninja
+        - ninja  # [not win]
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
@@ -154,6 +166,7 @@ outputs:
         - exit 0
   - name: duckdb-extension-tpcds
     build:
+      skip: true  # [win]
       binary_relocation: false
     script: install-extension.sh
     requirements:
@@ -162,7 +175,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
         - cmake
-        - ninja
+        - ninja  # [not win]
         - python *
         - macholib
       host:
@@ -171,21 +184,22 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh  # [not win]
       requires:
         - duckdb-cli
         - jq
   - name: duckdb-extension-httpfs
-    script: install-extension.sh
     build:
+      skip: true  # [win]
       binary_relocation: false
+    script: install-extension.sh
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
         - cmake
-        - ninja
+        - ninja  # [not win]
         - python *
         - macholib
       host:
@@ -195,21 +209,22 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh  # [not win]
       requires:
         - duckdb-cli
         - jq
   - name: duckdb-extension-fts
-    script: install-extension.sh
     build:
+      skip: true  # [win]
       binary_relocation: false
+    script: install-extension.sh
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
         - cmake
-        - ninja
+        - ninja  # [not win]
         - python *
         - macholib
       host:
@@ -219,12 +234,13 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh  # [not win]
       requires:
         - duckdb-cli
         - jq
   - name: duckdb-extension-tpch
     build:
+      skip: true  # [win]
       binary_relocation: false
     script: install-extension.sh
     requirements:
@@ -233,7 +249,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
         - cmake
-        - ninja
+        - ninja  # [not win]
         - python *
         - macholib
       host:
@@ -242,7 +258,7 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh  # [not win]
       requires:
         - duckdb-cli
         - jq
