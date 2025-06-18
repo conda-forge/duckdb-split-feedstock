@@ -31,7 +31,7 @@ echo "${DUCKDB_ARCH}" > "$(pwd)/.duckdb_arch"
 
 export OPENSSL_ROOT_DIR="${PREFIX}"
 
-port OVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-g2063dda
+export OVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-g2063dda
 
 cmake ${CMAKE_ARGS} \
     -GNinja \
