@@ -12,6 +12,7 @@ source:
     patches:
       - 0001-Dynamically-link-the-cli.patch
       - 0002-Remove-code-signature-before-applying-metadata-to-ex.patch
+      - 0003-Add-ppc64le-spin-wait-instruction.patch
   - url: https://github.com/duckdb/duckdb-httpfs/archive/af7bcaf40c775016838fef4823666bd18b89b36b.tar.gz
     sha256: e0021f932e714029cdcac3e5ec590e56cd414e2d61ccd7ceb3afecb039ea3024
     folder: extension/httpfs
@@ -20,8 +21,8 @@ source:
     folder: extension/fts
 
 build:
-  number: 0
-  skip: true  # [win or ppc64le]
+  number: 1
+  skip: true  # [win]
 
 requirements:
   build:
