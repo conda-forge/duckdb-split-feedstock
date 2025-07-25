@@ -19,6 +19,8 @@ source:
   - url: https://github.com/duckdb/duckdb-fts/archive/3aa6a180b9c101d78070f5f7214c27552bb091c8.tar.gz
     sha256: 3cc83386a0b9e367b743cc6d4c5dbea233439077cae2a92c1ff126e40abb2912
     folder: extension/fts
+  - url: https://github.com/duckdb/ducklake/archive/9cc2d903c51d360ff3fc6afb10cf38f8eac2e25b.tar.gz
+    sha256: 1b54a1b1a125f24578120965faf777886726f8483e913bfd6818e9b97f3ba4e2
 
 build:
   number: 1
@@ -225,6 +227,29 @@ outputs:
         - duckdb-cli
         - jq
   - name: duckdb-extension-tpch
+    build:
+      binary_relocation: false
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+        - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-ducklake
     build:
       binary_relocation: false
     script: install-extension.sh
