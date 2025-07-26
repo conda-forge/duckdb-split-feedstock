@@ -21,6 +21,7 @@ source:
     folder: extension/fts
   - url: https://github.com/duckdb/ducklake/archive/9cc2d903c51d360ff3fc6afb10cf38f8eac2e25b.tar.gz
     sha256: 1b54a1b1a125f24578120965faf777886726f8483e913bfd6818e9b97f3ba4e2
+    folder: extension/ducklake
 
 build:
   number: 1
