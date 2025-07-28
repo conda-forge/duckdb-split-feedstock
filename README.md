@@ -85,6 +85,7 @@ Current release info
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--cli-green.svg)](https://anaconda.org/conda-forge/duckdb-cli) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-cli.svg)](https://anaconda.org/conda-forge/duckdb-cli) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-cli.svg)](https://anaconda.org/conda-forge/duckdb-cli) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-cli.svg)](https://anaconda.org/conda-forge/duckdb-cli) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--autocomplete-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-autocomplete) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-autocomplete.svg)](https://anaconda.org/conda-forge/duckdb-extension-autocomplete) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-autocomplete.svg)](https://anaconda.org/conda-forge/duckdb-extension-autocomplete) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-autocomplete.svg)](https://anaconda.org/conda-forge/duckdb-extension-autocomplete) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--ducklake-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-ducklake) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-ducklake.svg)](https://anaconda.org/conda-forge/duckdb-extension-ducklake) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-ducklake.svg)](https://anaconda.org/conda-forge/duckdb-extension-ducklake) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-ducklake.svg)](https://anaconda.org/conda-forge/duckdb-extension-ducklake) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--fts-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-fts) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-fts.svg)](https://anaconda.org/conda-forge/duckdb-extension-fts) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-fts.svg)](https://anaconda.org/conda-forge/duckdb-extension-fts) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-fts.svg)](https://anaconda.org/conda-forge/duckdb-extension-fts) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--httpfs-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-httpfs) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-httpfs.svg)](https://anaconda.org/conda-forge/duckdb-extension-httpfs) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-httpfs.svg)](https://anaconda.org/conda-forge/duckdb-extension-httpfs) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-httpfs.svg)](https://anaconda.org/conda-forge/duckdb-extension-httpfs) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-duckdb--extension--json-green.svg)](https://anaconda.org/conda-forge/duckdb-extension-json) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/duckdb-extension-json.svg)](https://anaconda.org/conda-forge/duckdb-extension-json) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/duckdb-extension-json.svg)](https://anaconda.org/conda-forge/duckdb-extension-json) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/duckdb-extension-json.svg)](https://anaconda.org/conda-forge/duckdb-extension-json) |
@@ -103,16 +104,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `duckdb-cli, duckdb-extension-autocomplete, duckdb-extension-fts, duckdb-extension-httpfs, duckdb-extension-json, duckdb-extension-tpcds, duckdb-extension-tpch, libduckdb, libduckdb-devel` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `duckdb-cli, duckdb-extension-autocomplete, duckdb-extension-ducklake, duckdb-extension-fts, duckdb-extension-httpfs, duckdb-extension-json, duckdb-extension-tpcds, duckdb-extension-tpch, libduckdb, libduckdb-devel` can be installed with `conda`:
 
 ```
-conda install duckdb-cli duckdb-extension-autocomplete duckdb-extension-fts duckdb-extension-httpfs duckdb-extension-json duckdb-extension-tpcds duckdb-extension-tpch libduckdb libduckdb-devel
+conda install duckdb-cli duckdb-extension-autocomplete duckdb-extension-ducklake duckdb-extension-fts duckdb-extension-httpfs duckdb-extension-json duckdb-extension-tpcds duckdb-extension-tpch libduckdb libduckdb-devel
 ```
 
 or with `mamba`:
 
 ```
-mamba install duckdb-cli duckdb-extension-autocomplete duckdb-extension-fts duckdb-extension-httpfs duckdb-extension-json duckdb-extension-tpcds duckdb-extension-tpch libduckdb libduckdb-devel
+mamba install duckdb-cli duckdb-extension-autocomplete duckdb-extension-ducklake duckdb-extension-fts duckdb-extension-httpfs duckdb-extension-json duckdb-extension-tpcds duckdb-extension-tpch libduckdb libduckdb-devel
 ```
 
 It is possible to list all of the versions of `duckdb-cli` available on your platform with `conda`:
