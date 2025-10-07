@@ -36,7 +36,7 @@ requirements:
   host:
     - icu
     - openssl
-    - curl
+    - libcurl
 
 outputs:
   - name: libduckdb
@@ -195,7 +195,7 @@ outputs:
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
         - openssl
-        - curl
+        - libcurl
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
