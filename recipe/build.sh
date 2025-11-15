@@ -46,8 +46,8 @@ duckdb_extension_load(autocomplete)
 #
 duckdb_extension_load(tpcds DONT_LINK)
 duckdb_extension_load(tpch DONT_LINK)
-duckdb_extension_load(httpfs DONT_LINK)
-duckdb_extension_load(fts DONT_LINK)
+duckdb_extension_load(httpfs DONT_LINK APPLY_PATCHES)
+duckdb_extension_load(fts DONT_LINK APPLY_PATCHES)
 duckdb_extension_load(ducklake DONT_LINK)
 EOF
 
