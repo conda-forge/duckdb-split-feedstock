@@ -12,14 +12,14 @@ source:
     patches:
       - 0001-Dynamically-link-the-cli.patch
       - 0002-Remove-code-signature-before-applying-metadata-to-ex.patch
-  - url: https://github.com/duckdb/duckdb-httpfs/archive/8356a9017444f54018159718c8017ff7db4ea756.tar.gz
-    sha256: 712052e2def32b75876dd894894ab51fd4e6870a74f9c0411a1f31a9d00af628
+  - url: https://github.com/duckdb/duckdb-httpfs/archive/041a782b0b33495448a7eaa68973cf8c2174feb6.tar.gz
+    sha256: 5eec65a830082e643224cd4c9d4e960aff3e057249295e008676abd6ef9ecd97
     folder: extension/httpfs
   - url: https://github.com/duckdb/duckdb-fts/archive/39376623630a968154bef4e6930d12ad0b59d7fb.tar.gz
     sha256: b29888d124c424e0c4b502a46809f2c40c4575df6c20b0903a5e848fe527df44
     folder: extension/fts
-  - url: https://github.com/duckdb/ducklake/archive/f134ad86f2f6e7cdf4133086c38ecd9c48f1a772.tar.gz
-    sha256: f4c8dfe078235f900fddb1f5019cc9cf2bf9d9d6b0c0e58a1d1a9060de214c5b
+  - url: https://github.com/duckdb/ducklake/archive/77f2512a6774d51c99f9c0a165df76c5ae213a6d.tar.gz
+    sha256: f5840e5dd0bc52204b629a6467482eb99686f0e656da38e57b21a418ac996261
     folder: extension/ducklake
 
 build:
