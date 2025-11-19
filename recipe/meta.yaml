@@ -1,5 +1,5 @@
 {% set name = "duckdb" %}
-{% set version = "1.4.1" %}
+{% set version = "1.4.2" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,22 +8,13 @@ package:
 source:
     # (!!) Please also update the git used for OVERRIDE_GIT_DESCRIBE in the build scripts.
   - url: https://github.com/duckdb/duckdb/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 91e55efe2c1627c4432d620ee9d2ffcd72f954699e76d7dab523348a7dfbb00a
+    sha256: 43193b3661e0f6dce8a1ad9144bbd21c42601fe0e84efee7b3577a4bb160965c
     patches:
       - 0001-Dynamically-link-the-cli.patch
       - 0002-Remove-code-signature-before-applying-metadata-to-ex.patch
-  - url: https://github.com/duckdb/duckdb-httpfs/archive/8356a9017444f54018159718c8017ff7db4ea756.tar.gz
-    sha256: 712052e2def32b75876dd894894ab51fd4e6870a74f9c0411a1f31a9d00af628
-    folder: extension/httpfs
-  - url: https://github.com/duckdb/duckdb-fts/archive/39376623630a968154bef4e6930d12ad0b59d7fb.tar.gz
-    sha256: b29888d124c424e0c4b502a46809f2c40c4575df6c20b0903a5e848fe527df44
-    folder: extension/fts
-  - url: https://github.com/duckdb/ducklake/archive/f134ad86f2f6e7cdf4133086c38ecd9c48f1a772.tar.gz
-    sha256: f4c8dfe078235f900fddb1f5019cc9cf2bf9d9d6b0c0e58a1d1a9060de214c5b
-    folder: extension/ducklake
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
 
 requirements:
