@@ -12,15 +12,6 @@ source:
     patches:
       - 0001-Dynamically-link-the-cli.patch
       - 0002-Remove-code-signature-before-applying-metadata-to-ex.patch
-  - url: https://github.com/duckdb/duckdb-httpfs/archive/041a782b0b33495448a7eaa68973cf8c2174feb6.tar.gz
-    sha256: 5eec65a830082e643224cd4c9d4e960aff3e057249295e008676abd6ef9ecd97
-    folder: extension/httpfs
-  - url: https://github.com/duckdb/duckdb-fts/archive/39376623630a968154bef4e6930d12ad0b59d7fb.tar.gz
-    sha256: b29888d124c424e0c4b502a46809f2c40c4575df6c20b0903a5e848fe527df44
-    folder: extension/fts
-  - url: https://github.com/duckdb/ducklake/archive/77f2512a6774d51c99f9c0a165df76c5ae213a6d.tar.gz
-    sha256: f5840e5dd0bc52204b629a6467482eb99686f0e656da38e57b21a418ac996261
-    folder: extension/ducklake
 
 build:
   number: 0
