@@ -44,47 +44,47 @@ duckdb_extension_load(parquet)
 #
 ## Extensions that are not linked
 #
-# https://github.com/duckdb/duckdb/blob/v1.4.2/.github/config/extensions/avro.cmake
+# https://github.com/duckdb/duckdb/blob/v1.4.3/.github/config/extensions/avro.cmake
 duckdb_extension_load(avro
     DONT_LINK
     GIT_URL https://github.com/duckdb/duckdb-avro
     GIT_TAG 93da8a19b41eb577add83d0552c6946a16e97c83
 )
 
-# https://github.com/duckdb/duckdb/blob/v1.4.2/.github/config/extensions/aws.cmake
+# https://github.com/duckdb/duckdb/blob/v1.4.3/.github/config/extensions/aws.cmake
 duckdb_extension_load(aws
     DONT_LINK
     GIT_URL https://github.com/duckdb/duckdb-aws
     GIT_TAG 55bf3621fb7db254b473c94ce6360643ca38fac0
 )
 
-# https://github.com/duckdb/duckdb/blob/v1.4.2/.github/config/extensions/ducklake.cmake
+# https://github.com/duckdb/duckdb/blob/v1.4.3/.github/config/extensions/ducklake.cmake
 duckdb_extension_load(ducklake
     DONT_LINK
     GIT_URL https://github.com/duckdb/ducklake
-    GIT_TAG 77f2512a6774d51c99f9c0a165df76c5ae213a6d
+    GIT_TAG de813ff4d052bffe3e9e7ffcdc31d18ca38e5ecd
 )
 
-# https://github.com/duckdb/duckdb/blob/v1.4.2/.github/config/extensions/fts.cmake
+# https://github.com/duckdb/duckdb/blob/v1.4.3/.github/config/extensions/fts.cmake
 duckdb_extension_load(fts
     DONT_LINK
     GIT_URL https://github.com/duckdb/duckdb-fts
     GIT_TAG 39376623630a968154bef4e6930d12ad0b59d7fb
 )
 
-# https://github.com/duckdb/duckdb/blob/v1.4.2/.github/config/extensions/httpfs.cmake
+# https://github.com/duckdb/duckdb/blob/v1.4.3/.github/config/extensions/httpfs.cmake
 duckdb_extension_load(httpfs
     DONT_LINK
     GIT_URL https://github.com/duckdb/duckdb-httpfs
-    GIT_TAG 041a782b0b33495448a7eaa68973cf8c2174feb6
+    GIT_TAG 9c7d34977b10346d0b4cbbde5df807d1dab0b2bf
     INCLUDE_DIR src/include
 )
 
-# https://github.com/duckdb/duckdb/blob/v1.4.2/.github/config/extensions/iceberg.cmake
+# https://github.com/duckdb/duckdb/blob/v1.4.3/.github/config/extensions/iceberg.cmake
 duckdb_extension_load(iceberg
     DONT_LINK
     GIT_URL https://github.com/duckdb/duckdb-iceberg
-    GIT_TAG db7c01e9271bda329172872a204470893ea4eae1
+    GIT_TAG 1c0c4c60818f58b603fc50d5267b1f1202fe5484
 )
 
 duckdb_extension_load(tpcds DONT_LINK)
