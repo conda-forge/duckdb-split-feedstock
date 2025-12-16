@@ -105,29 +105,6 @@ outputs:
     test:
       commands:
         - exit 0
-  - name: duckdb-extension-tpcds
-    build:
-      binary_relocation: false
-    script: install-extension.sh
-    requirements:
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - {{ stdlib("c") }}
-        - cmake
-        - ninja
-        - python *
-        - macholib
-      host:
-        - {{ pin_subpackage("libduckdb", exact=True) }}
-      run:
-        - {{ pin_subpackage("libduckdb", exact=True) }}
-    test:
-      commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
-      requires:
-        - duckdb-cli
-        - jq
   - name: duckdb-extension-autocomplete
     script: noop.sh
     # Empty placeholder package as this now built-in
@@ -243,6 +220,75 @@ outputs:
         - duckdb-cli
         - jq
   - name: duckdb-extension-ducklake
+    build:
+      binary_relocation: false
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+        - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-avro
+    build:
+      binary_relocation: false
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+        - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-aws
+    build:
+      binary_relocation: false
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+    test:
+      commands:
+        - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-iceberg
     build:
       binary_relocation: false
     script: install-extension.sh
