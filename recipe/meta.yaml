@@ -257,6 +257,7 @@ outputs:
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
+        - avro-c
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
@@ -280,6 +281,9 @@ outputs:
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
+        - openssl
+        - libcurl
+        - zlib
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
@@ -303,6 +307,10 @@ outputs:
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
+        - openssl
+        - libcurl
+        - avro-c
+        - roaring
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
