@@ -11,10 +11,10 @@ source:
     sha256: 43645e15419c6539bae6915ba397de6569e4a7ca0d502be95d653a78fdb0bece
     patches:
       - 0001-Dynamically-link-the-cli.patch
-      - 0002-Remove-code-signature-before-applying-metadata-to-ex.patch
+      - 0001-Make-extensions-prefix-free.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
