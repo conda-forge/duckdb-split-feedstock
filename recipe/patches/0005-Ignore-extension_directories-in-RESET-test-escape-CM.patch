@@ -1,0 +1,42 @@
+From 6a80712935374f90c0e1ed4b2a026711c5aa8532 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Wed, 26 Nov 2025 12:49:56 +0100
+Subject: [PATCH 5/5] Ignore extension_directories in RESET test; escape CMake
+ array interpretation
+
+---
+ src/main/extension/CMakeLists.txt | 6 +++++-
+ test/api/test_reset.cpp           | 1 +
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/src/main/extension/CMakeLists.txt b/src/main/extension/CMakeLists.txt
+index 3a9ab41..267f1f1 100644
+--- a/src/main/extension/CMakeLists.txt
++++ b/src/main/extension/CMakeLists.txt
+@@ -99,9 +99,13 @@ add_library(
+   extension_alias.cpp extension_helper.cpp extension_install.cpp
+   extension_load.cpp extension_loader.cpp)
+ 
++# Escape ; in the string to ensure this is treated as a plain string instead of
++# a list
++string(REPLACE ";" "\;" EXT_DIR_ESCAPED "${EXTENSION_DIRECTORIES}")
++
+ target_compile_definitions(
+   duckdb_main_extension
+-  PRIVATE DUCKDB_EXTENSION_DIRECTORIES="${EXTENSION_DIRECTORIES}")
++  PRIVATE "DUCKDB_EXTENSION_DIRECTORIES=\"${EXT_DIR_ESCAPED}\"")
+ 
+ set(ALL_OBJECT_FILES
+     ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:duckdb_main_extension>
+diff --git a/test/api/test_reset.cpp b/test/api/test_reset.cpp
+index f780ff5..963f5ab 100644
+--- a/test/api/test_reset.cpp
++++ b/test/api/test_reset.cpp
+@@ -181,6 +181,7 @@ bool OptionIsExcludedFromTest(const string &name) {
+ 	    "enable_profiling",
+ 	    "enable_progress_bar",
+ 	    "enable_progress_bar_print",
++	    "extension_directories",
+ 	    "progress_bar_time",
+ 	    "index_scan_max_count",
+ 	    "profiling_mode"};
