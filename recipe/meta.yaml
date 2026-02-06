@@ -10,11 +10,14 @@ source:
   - url: https://github.com/duckdb/duckdb/archive/refs/tags/v{{ version }}.tar.gz
     sha256: 43645e15419c6539bae6915ba397de6569e4a7ca0d502be95d653a78fdb0bece
     patches:
-      - 0001-Dynamically-link-the-cli.patch
-      - 0001-Make-extensions-prefix-free.patch
+      - patches/0001-Dynamically-link-the-cli.patch
+      - patches/0002-Make-extensions-prefix-free.patch
+      - patches/0003-Add-a-secondary-extension-directory-for-package-mana.patch
+      - patches/0004-Split-into-two-options.patch
+      - patches/0005-Ignore-extension_directories-in-RESET-test-escape-CM.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
 
 requirements:

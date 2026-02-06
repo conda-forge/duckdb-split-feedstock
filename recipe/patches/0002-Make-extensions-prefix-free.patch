@@ -1,0 +1,28 @@
+From d5f8cf93ec54af9b035759820976fc385c6fe666 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Wed, 28 Jan 2026 20:46:00 +0100
+Subject: [PATCH 2/5] Make extensions prefix-free
+
+---
+ CMakeLists.txt | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3246265..de6dcc5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -888,6 +888,14 @@ function(build_loadable_extension_directory NAME ABI_TYPE OUTPUT_DIRECTORY EXTEN
+   set_target_properties(${TARGET_NAME} PROPERTIES DEFINE_SYMBOL "")
+   set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME ${NAME})
+   set_target_properties(${TARGET_NAME} PROPERTIES PREFIX "")
++  if(APPLE)
++    set_target_properties(${TARGET_NAME} PROPERTIES INSTALL_RPATH "@loader_path/../../../../lib")
++    set_target_properties(${TARGET_NAME} PROPERTIES BUILD_RPATH "@loader_path/../../../../lib")
++    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
++        COMMAND install_name_tool -delete_rpath "$ENV{PREFIX}/lib" $<TARGET_FILE:${TARGET_NAME}>
++	COMMENT "Removing absolute RPATH to ensure we don't do prefix replacement on the library"
++    )
++  endif()
+   if(${IGNORE_WARNINGS} GREATER -1)
+     disable_target_warnings(${TARGET_NAME})
+   endif()

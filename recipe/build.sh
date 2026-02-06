@@ -5,7 +5,8 @@ set -euxo pipefail
 mkdir -p build
 pushd build
 
-export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=17"
+# The trailing ; is important!
+export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=17 -DEXTENSION_DIRECTORIES=~/.duckdb/extensions;$PREFIX/duckdb/extensions;"
 
 if [[ "${target_platform}" == "linux-64" ]]; then
     DUCKDB_ARCH='linux_amd64'
