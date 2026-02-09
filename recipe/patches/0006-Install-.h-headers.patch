@@ -1,0 +1,21 @@
+From 0e7b50726bad570b552139b2506f6e1cd6ccd2e6 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Mon, 9 Feb 2026 17:29:56 +0100
+Subject: [PATCH 6/6] Install .h headers
+
+---
+ src/CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 1915e92..eb8dcc5 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -164,6 +164,7 @@ else()
+     DIRECTORY "${PROJECT_SOURCE_DIR}/src/include/duckdb"
+     DESTINATION "${INSTALL_INCLUDE_DIR}"
+     FILES_MATCHING
++    PATTERN "*.h"
+     PATTERN "*.hpp"
+     PATTERN "*.ipp")
+   install(FILES "${PROJECT_SOURCE_DIR}/src/include/duckdb.hpp"

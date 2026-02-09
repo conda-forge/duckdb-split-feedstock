@@ -15,9 +15,10 @@ source:
       - patches/0003-Add-a-secondary-extension-directory-for-package-mana.patch
       - patches/0004-Split-into-two-options.patch
       - patches/0005-Ignore-extension_directories-in-RESET-test-escape-CM.patch
+      - patches/0006-Install-.h-headers.patch
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win]
 
 requirements:
@@ -70,6 +71,7 @@ outputs:
     test:
       commands:
         - test -f $PREFIX/include/duckdb.h
+        - test -f $PREFIX/include/duckdb/common/adbc/adbc.h
   - name: duckdb-cli
     script: install-cli.sh
     requirements:
