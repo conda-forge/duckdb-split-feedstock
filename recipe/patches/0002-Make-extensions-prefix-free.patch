@@ -1,7 +1,7 @@
-From d5f8cf93ec54af9b035759820976fc385c6fe666 Mon Sep 17 00:00:00 2001
+From d91f8114f77b1197996de97c971befa88eed5a20 Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 28 Jan 2026 20:46:00 +0100
-Subject: [PATCH 2/5] Make extensions prefix-free
+Subject: [PATCH 2/6] Make extensions prefix-free
 
 ---
  CMakeLists.txt | 8 ++++++++

@@ -1,7 +1,7 @@
-From 6a80712935374f90c0e1ed4b2a026711c5aa8532 Mon Sep 17 00:00:00 2001
+From c8990704798fc98109f47de5972e470a39c0529d Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Wed, 26 Nov 2025 12:49:56 +0100
-Subject: [PATCH 5/5] Ignore extension_directories in RESET test; escape CMake
+Subject: [PATCH 5/6] Ignore extension_directories in RESET test; escape CMake
  array interpretation
 
 ---

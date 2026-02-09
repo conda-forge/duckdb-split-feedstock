@@ -1,7 +1,7 @@
-From cbf57b4bbf083a13865d28b691ca72050f1346fe Mon Sep 17 00:00:00 2001
+From 4ff4f8a78a293621a54a7ce38cc97cc3fb834b7c Mon Sep 17 00:00:00 2001
 From: "Uwe L. Korn" <uwe.korn@quantco.com>
 Date: Tue, 25 Nov 2025 21:36:19 +0100
-Subject: [PATCH 4/5] Split into two options
+Subject: [PATCH 4/6] Split into two options
 
 ---
  scripts/settings_scripts/config.py            |  18 +--
