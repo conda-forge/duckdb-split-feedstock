@@ -11,9 +11,6 @@ source:
     sha256: fb039699c5a91dec9876540aed7904b6b4e713b800014840dbf641168147a556
     patches:
       - patches/0002-Make-extensions-prefix-free.patch
-      - patches/0003-Add-a-secondary-extension-directory-for-package-mana.patch
-      - patches/0004-Split-into-two-options.patch
-      - patches/0005-Ignore-extension_directories-in-RESET-test-escape-CM.patch
       - patches/0006-Install-.h-headers.patch
 
 build:
