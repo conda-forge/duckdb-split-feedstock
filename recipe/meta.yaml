@@ -10,6 +10,7 @@ source:
   - url: https://github.com/duckdb/duckdb/archive/refs/tags/v{{ version }}.tar.gz
     sha256: fb039699c5a91dec9876540aed7904b6b4e713b800014840dbf641168147a556
     patches:
+      - patches/0001-Dynamically-link-the-cli.patch
       - patches/0002-Make-extensions-prefix-free.patch
       - patches/0006-Install-.h-headers.patch
 
