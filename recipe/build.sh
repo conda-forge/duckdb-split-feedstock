@@ -48,33 +48,32 @@ duckdb_extension_load(autocomplete)
 duckdb_extension_load(tpcds DONT_LINK)
 duckdb_extension_load(tpch DONT_LINK)
 
-# https://github.com/duckdb/duckdb/blob/v1.4.2/.github/config/extensions/httpfs.cmake
+# https://github.com/duckdb/duckdb/blob/v1.5.0/.github/config/extensions/httpfs.cmake
 duckdb_extension_load(httpfs
     DONT_LINK
     GIT_URL https://github.com/duckdb/duckdb-httpfs
-    GIT_TAG 13f8a814d41a978c3f19eb1dc76069489652ea6f
-    INCLUDE_DIR src/include
+    GIT_TAG 74f954001f3a740c909181b02259de6c7b942632
 )
 
-# https://github.com/duckdb/duckdb/blob/v1.4.2/.github/config/extensions/fts.cmake
+# https://github.com/duckdb/duckdb/blob/v1.5.0/.github/config/extensions/fts.cmake
 duckdb_extension_load(fts
-        DONT_LINK
-        GIT_URL https://github.com/duckdb/duckdb-fts
-        GIT_TAG 39376623630a968154bef4e6930d12ad0b59d7fb
+    DONT_LINK
+    GIT_URL https://github.com/duckdb/duckdb-fts
+    GIT_TAG 6814ec9a7d5fd63500176507262b0dbf7cea0095
 )
 
-# https://github.com/duckdb/duckdb/blob/v1.4.2/.github/config/extensions/ducklake.cmake
+# https://github.com/duckdb/duckdb/blob/v1.5.0/.github/config/extensions/ducklake.cmake
 duckdb_extension_load(ducklake
     DONT_LINK
     GIT_URL https://github.com/duckdb/ducklake
-    GIT_TAG 3f1b37258b4b3d123d91180a1f4cc11fe8d33386
+    GIT_TAG 7ea15644fd5f5ff42b86b8a703c14172acc7b8bd
 )
 EOF
 
 cmake ${CMAKE_ARGS} \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
-    -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-g68d7555 \
+    -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-g3a3967a \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
     -DWITH_INTERNAL_ICU=OFF \
     ..
