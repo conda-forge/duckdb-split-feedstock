@@ -8,14 +8,14 @@ Subject: [PATCH 6/6] Install .h headers
  1 file changed, 1 insertion(+)
 
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 1915e92..eb8dcc5 100644
+index 24afa3db42..292081b69e 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -164,6 +164,7 @@ else()
-     DIRECTORY "${PROJECT_SOURCE_DIR}/src/include/duckdb"
-     DESTINATION "${INSTALL_INCLUDE_DIR}"
-     FILES_MATCHING
-+    PATTERN "*.h"
-     PATTERN "*.hpp"
-     PATTERN "*.ipp")
-   install(FILES "${PROJECT_SOURCE_DIR}/src/include/duckdb.hpp"
+@@ -137,6 +137,7 @@ install(
+   DIRECTORY "${PROJECT_SOURCE_DIR}/src/include/duckdb"
+   DESTINATION "${INSTALL_INCLUDE_DIR}"
+   FILES_MATCHING
++  PATTERN "*.h"
+   PATTERN "*.hpp"
+   PATTERN "*.ipp")
+ install(FILES "${PROJECT_SOURCE_DIR}/src/include/duckdb.hpp"
