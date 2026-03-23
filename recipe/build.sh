@@ -48,25 +48,25 @@ duckdb_extension_load(autocomplete)
 duckdb_extension_load(tpcds DONT_LINK)
 duckdb_extension_load(tpch DONT_LINK)
 
-# https://github.com/duckdb/duckdb/blob/v1.5.0/.github/config/extensions/httpfs.cmake
+# https://github.com/duckdb/duckdb/blob/v1.5.1/.github/config/extensions/httpfs.cmake
 duckdb_extension_load(httpfs
     DONT_LINK
     GIT_URL https://github.com/duckdb/duckdb-httpfs
-    GIT_TAG 74f954001f3a740c909181b02259de6c7b942632
+    GIT_TAG 7e86e7a5e5a1f01f458361bebdfa9b0a9a73a619
 )
 
-# https://github.com/duckdb/duckdb/blob/v1.5.0/.github/config/extensions/fts.cmake
+# https://github.com/duckdb/duckdb/blob/v1.5.1/.github/config/extensions/fts.cmake
 duckdb_extension_load(fts
     DONT_LINK
     GIT_URL https://github.com/duckdb/duckdb-fts
     GIT_TAG 6814ec9a7d5fd63500176507262b0dbf7cea0095
 )
 
-# https://github.com/duckdb/duckdb/blob/v1.5.0/.github/config/extensions/ducklake.cmake
+# https://github.com/duckdb/duckdb/blob/v1.5.1/.github/config/extensions/ducklake.cmake
 duckdb_extension_load(ducklake
     DONT_LINK
     GIT_URL https://github.com/duckdb/ducklake
-    GIT_TAG 7ea15644fd5f5ff42b86b8a703c14172acc7b8bd
+    GIT_TAG 67480b1d5c76f29276b4195bdd1175e2fe066236
 )
 EOF
 
