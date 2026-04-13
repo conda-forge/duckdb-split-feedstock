@@ -15,7 +15,7 @@ source:
       - patches/0006-Install-.h-headers.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -29,7 +29,7 @@ requirements:
     - icu
     - openssl
     - libcurl
-    - croaring  # [not (linux and ppc64le)]
+    - croaring
 
 outputs:
   - name: libduckdb
@@ -248,7 +248,6 @@ outputs:
   - name: duckdb-extension-ducklake
     build:
       binary_relocation: false
-      skip: true  # [linux and ppc64le]
     script: install-extension.sh
     requirements:
       build:

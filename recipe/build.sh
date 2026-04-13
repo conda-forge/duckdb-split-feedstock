@@ -61,10 +61,7 @@ duckdb_extension_load(fts
     GIT_URL https://github.com/duckdb/duckdb-fts
     GIT_TAG 6814ec9a7d5fd63500176507262b0dbf7cea0095
 )
-EOF
 
-if [[ "${target_platform}" != "linux-ppc64le" ]]; then
-cat >> "$PWD/bundled_extensions.cmake" <<EOF
 # https://github.com/duckdb/duckdb/blob/v1.5.2/.github/config/extensions/ducklake.cmake
 duckdb_extension_load(ducklake
     DONT_LINK
@@ -72,7 +69,6 @@ duckdb_extension_load(ducklake
     GIT_TAG 415a9ebdbd73db50a8c6ba703eb733ed16bcf33a
 )
 EOF
-fi
 
 cmake ${CMAKE_ARGS} \
     -GNinja \
