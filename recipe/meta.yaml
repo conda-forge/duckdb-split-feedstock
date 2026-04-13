@@ -1,5 +1,5 @@
 {% set name = "duckdb" %}
-{% set version = "1.5.1" %}
+{% set version = "1.5.2" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,7 +8,7 @@ package:
 source:
     # (!!) Please also update the git used for OVERRIDE_GIT_DESCRIBE in the build scripts.
   - url: https://github.com/duckdb/duckdb/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 2de9901f05d445e6a24b79127fd70f2e4fbd552b44dc1dc668aca07fbf97f716
+    sha256: 6d8612fc87115cf4d3512a934ada5d1669db29378b4cc8e226fdfa8f5c537385
     patches:
       - patches/0001-Dynamically-link-the-cli.patch
       - patches/0002-Make-extensions-prefix-free.patch
@@ -29,6 +29,7 @@ requirements:
     - icu
     - openssl
     - libcurl
+    - croaring  # [not (linux and ppc64le)]
 
 outputs:
   - name: libduckdb
@@ -247,6 +248,7 @@ outputs:
   - name: duckdb-extension-ducklake
     build:
       binary_relocation: false
+      skip: true  # [linux and ppc64le]
     script: install-extension.sh
     requirements:
       build:
@@ -259,8 +261,10 @@ outputs:
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
+        - croaring
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
+        - croaring
     test:
       commands:
         - {{ RECIPE_DIR }}/test-extension.sh
