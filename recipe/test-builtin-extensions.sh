@@ -2,10 +2,7 @@ set -euxo pipefail
 
 PKG_PREFIX='duckdb-extension-'
 EXTENSION_NAME="${PKG_NAME#$PKG_PREFIX}"
-
-if [[ "${target_platform}" == linux-* ]]; then
-  EXPECTED_EXTENSIONS='"autocomplete", "core_functions", "icu", "json", "parquet", "shell"'
-fi
+EXPECTED_EXTENSIONS='"autocomplete", "core_functions", "icu", "json", "parquet", "shell"'
 
 QUERY="select extension_name from duckdb_extensions() where (installed and install_mode = 'STATICALLY_LINKED');"
 
