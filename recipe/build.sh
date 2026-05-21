@@ -68,6 +68,15 @@ duckdb_extension_load(ducklake
     GIT_URL https://github.com/duckdb/ducklake
     GIT_TAG e6a3bd0a8554b74d97cbc7e8acc3e2c9f01a0385
 )
+
+https://github.com/duckdb/duckdb/blob/v1.5.3/.github/config/extensions/spatial.cmake
+duckdb_extension_load(spatial
+    DONT_LINK LOAD_TESTS
+    GIT_URL https://github.com/duckdb/duckdb-spatial
+    GIT_TAG b68b309d371dba936c5bb362980e559b7756b16d
+    INCLUDE_DIR src/spatial
+    TEST_DIR test/sql
+    )
 EOF
 
 cmake ${CMAKE_ARGS} \
