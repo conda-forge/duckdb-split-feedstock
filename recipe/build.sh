@@ -73,7 +73,7 @@ EOF
 cmake ${CMAKE_ARGS} \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
-    -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-g8a58519 \
+    -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-g14eca11 \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
     -DWITH_INTERNAL_ICU=OFF \
     ..
