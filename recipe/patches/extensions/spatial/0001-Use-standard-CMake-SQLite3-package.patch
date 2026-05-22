@@ -16,7 +16,7 @@ index 93c0fcf..c3f88ee 100644
  find_package(GDAL CONFIG REQUIRED)
  find_package(EXPAT REQUIRED)
 -find_package(unofficial-sqlite3 CONFIG REQUIRED)
-+find_package(SQLite3 CONFIG REQUIRED)
++find_package(SQLite3 REQUIRED)
  
  # Important: The link order matters, its the reverse order of dependency
  set(EXTENSION_DEPENDENCIES GDAL::GDAL PROJ::proj EXPAT::EXPAT
@@ -27,4 +27,3 @@ index 93c0fcf..c3f88ee 100644
    message(STATUS "Building with GEOS functionality")
 -- 
 2.54.0
-
