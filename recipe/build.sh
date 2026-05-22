@@ -2,6 +2,8 @@
 
 set -euxo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 mkdir -p build
 pushd build
 
@@ -31,6 +33,21 @@ fi
 echo "${DUCKDB_ARCH}" > "$(pwd)/.duckdb_arch"
 
 export OPENSSL_ROOT_DIR="${PREFIX}"
+
+# Stage spatial patch where DuckDB's APPLY_PATCHES mechanism expects it.
+SPATIAL_PATCH_NAME="0001-Use-standard-CMake-SQLite3-package.patch"
+SPATIAL_PATCH_BASE="${RECIPE_DIR:-${SCRIPT_DIR}}"
+SPATIAL_PATCH_SRC="${SPATIAL_PATCH_BASE}/patches/extensions/spatial/${SPATIAL_PATCH_NAME}"
+if [[ ! -f "${SPATIAL_PATCH_SRC}" ]]; then
+    SPATIAL_PATCH_SRC="${SCRIPT_DIR}/patches/${SPATIAL_PATCH_NAME}"
+fi
+if [[ ! -f "${SPATIAL_PATCH_SRC}" ]]; then
+    echo "Could not find spatial patch file: ${SPATIAL_PATCH_NAME}" >&2
+    exit 1
+fi
+SPATIAL_PATCH_DST_DIR="../.github/patches/extensions/spatial"
+mkdir -p "${SPATIAL_PATCH_DST_DIR}"
+cp "${SPATIAL_PATCH_SRC}" "${SPATIAL_PATCH_DST_DIR}/${SPATIAL_PATCH_NAME}"
 
 # This is the extension config that is used to build / test
 cat > $PWD/bundled_extensions.cmake <<EOF
@@ -69,13 +86,14 @@ duckdb_extension_load(ducklake
     GIT_TAG e6a3bd0a8554b74d97cbc7e8acc3e2c9f01a0385
 )
 
-https://github.com/duckdb/duckdb/blob/v1.5.3/.github/config/extensions/spatial.cmake
+# https://github.com/duckdb/duckdb/blob/v1.5.3/.github/config/extensions/spatial.cmake
 duckdb_extension_load(spatial
     DONT_LINK LOAD_TESTS
     GIT_URL https://github.com/duckdb/duckdb-spatial
     GIT_TAG b68b309d371dba936c5bb362980e559b7756b16d
     INCLUDE_DIR src/spatial
     TEST_DIR test/sql
+    APPLY_PATCHES
     )
 EOF
 
