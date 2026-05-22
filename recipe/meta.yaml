@@ -31,7 +31,7 @@ requirements:
     - libcurl
     - croaring
     - expat
-    - libgdal-core
+    - libgdal-core <3.11
     - geos
     - proj
     - libsqlite
@@ -293,7 +293,7 @@ outputs:
         - openssl
         - libcurl
         - expat
-        - libgdal-core
+        - libgdal-core <3.11
         - geos
         - proj
         - libsqlite
