@@ -86,6 +86,10 @@ if [[ -z "${VCPKG_ROOT:-}" ]] && [[ -n "${LIBRARY_PREFIX:-}" ]]; then
     export VCPKG_ROOT="${LIBRARY_PREFIX}/share/vcpkg"
 fi
 
+if [[ -z "${VCPKG_TOOLCHAIN_PATH:-}" ]]; then
+    export VCPKG_TOOLCHAIN_PATH="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+fi
+
 cmake ${CMAKE_ARGS} \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
