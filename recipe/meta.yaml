@@ -25,6 +25,7 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
+    - vcpkg
   host:
     - icu
     - openssl

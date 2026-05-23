@@ -82,10 +82,15 @@ duckdb_extension_load(spatial
 EOF
 
 # Use duckdb-spatial's vcpkg_ports overlay deps through the merged manifest flow.
+if [[ -z "${VCPKG_ROOT:-}" ]] && [[ -n "${LIBRARY_PREFIX:-}" ]]; then
+    export VCPKG_ROOT="${LIBRARY_PREFIX}/share/vcpkg"
+fi
+
 if [[ -z "${VCPKG_TOOLCHAIN_PATH:-}" ]]; then
-    for candidate in \
-        "${BUILD_PREFIX:-}/share/vcpkg/scripts/buildsystems/vcpkg.cmake" \
-        "${PREFIX:-}/share/vcpkg/scripts/buildsystems/vcpkg.cmake"; do
+    candidates=(
+        "${VCPKG_ROOT:-}/scripts/buildsystems/vcpkg.cmake"
+    )
+    for candidate in "${candidates[@]}"; do
         if [[ -f "${candidate}" ]]; then
             export VCPKG_TOOLCHAIN_PATH="${candidate}"
             break
@@ -94,7 +99,11 @@ if [[ -z "${VCPKG_TOOLCHAIN_PATH:-}" ]]; then
 fi
 
 if [[ -z "${VCPKG_TOOLCHAIN_PATH:-}" ]]; then
-    echo "VCPKG_TOOLCHAIN_PATH is not set and no vcpkg toolchain file was found" >&2
+    echo "VCPKG toolchain file was not found. Looked in:" >&2
+    for candidate in "${candidates[@]}"; do
+        echo "  - ${candidate}" >&2
+    done
+    echo "Install the 'vcpkg' package in build requirements or set VCPKG_TOOLCHAIN_PATH explicitly." >&2
     exit 1
 fi
 
