@@ -31,10 +31,7 @@ requirements:
     - libcurl
     - croaring
     - expat
-    - libgdal-core <3.9
     - geos
-    - proj
-    - libsqlite
     - libzlib
 
 outputs:
@@ -293,10 +290,7 @@ outputs:
         - openssl
         - libcurl
         - expat
-        - libgdal-core <3.9
         - geos
-        - proj
-        - libsqlite
         - libzlib
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
