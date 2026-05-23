@@ -34,21 +34,6 @@ echo "${DUCKDB_ARCH}" > "$(pwd)/.duckdb_arch"
 
 export OPENSSL_ROOT_DIR="${PREFIX}"
 
-# Stage spatial patch where DuckDB's APPLY_PATCHES mechanism expects it.
-SPATIAL_PATCH_NAME="0001-Use-standard-CMake-SQLite3-package.patch"
-SPATIAL_PATCH_BASE="${RECIPE_DIR:-${SCRIPT_DIR}}"
-SPATIAL_PATCH_SRC="${SPATIAL_PATCH_BASE}/patches/extensions/spatial/${SPATIAL_PATCH_NAME}"
-if [[ ! -f "${SPATIAL_PATCH_SRC}" ]]; then
-    SPATIAL_PATCH_SRC="${SCRIPT_DIR}/patches/${SPATIAL_PATCH_NAME}"
-fi
-if [[ ! -f "${SPATIAL_PATCH_SRC}" ]]; then
-    echo "Could not find spatial patch file: ${SPATIAL_PATCH_NAME}" >&2
-    exit 1
-fi
-SPATIAL_PATCH_DST_DIR="../.github/patches/extensions/spatial"
-mkdir -p "${SPATIAL_PATCH_DST_DIR}"
-cp "${SPATIAL_PATCH_SRC}" "${SPATIAL_PATCH_DST_DIR}/${SPATIAL_PATCH_NAME}"
-
 # This is the extension config that is used to build / test
 cat > $PWD/bundled_extensions.cmake <<EOF
 #
@@ -93,9 +78,39 @@ duckdb_extension_load(spatial
     GIT_TAG b68b309d371dba936c5bb362980e559b7756b16d
     INCLUDE_DIR src/spatial
     TEST_DIR test/sql
-    APPLY_PATCHES
     )
 EOF
+
+# Use duckdb-spatial's vcpkg_ports overlay deps through the merged manifest flow.
+if [[ -z "${VCPKG_TOOLCHAIN_PATH:-}" ]]; then
+    for candidate in \
+        "${BUILD_PREFIX:-}/share/vcpkg/scripts/buildsystems/vcpkg.cmake" \
+        "${PREFIX:-}/share/vcpkg/scripts/buildsystems/vcpkg.cmake"; do
+        if [[ -f "${candidate}" ]]; then
+            export VCPKG_TOOLCHAIN_PATH="${candidate}"
+            break
+        fi
+    done
+fi
+
+if [[ -z "${VCPKG_TOOLCHAIN_PATH:-}" ]]; then
+    echo "VCPKG_TOOLCHAIN_PATH is not set and no vcpkg toolchain file was found" >&2
+    exit 1
+fi
+
+# generate the merged vcpkg manifest through extension-configuration mode.
+mkdir -p extension_configuration
+pushd extension_configuration
+cmake ${CMAKE_ARGS} \
+    -GNinja \
+    -DEXTENSION_CONFIG_BUILD=TRUE \
+    -DVCPKG_BUILD=1 \
+    -DDUCKDB_EXTENSION_CONFIGS="$PWD/../bundled_extensions.cmake" \
+    ..
+ninja
+popd
+
+export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_TOOLCHAIN_FILE=${VCPKG_TOOLCHAIN_PATH} -DVCPKG_BUILD=1 -DVCPKG_MANIFEST_DIR=$PWD/extension_configuration"
 
 cmake ${CMAKE_ARGS} \
     -GNinja \
