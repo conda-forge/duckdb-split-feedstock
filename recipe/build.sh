@@ -112,10 +112,11 @@ mkdir -p extension_configuration
 pushd extension_configuration
 cmake ${CMAKE_ARGS} \
     -GNinja \
+    -S ../.. \
+    -B . \
     -DEXTENSION_CONFIG_BUILD=TRUE \
     -DVCPKG_BUILD=1 \
-    -DDUCKDB_EXTENSION_CONFIGS="$PWD/../bundled_extensions.cmake" \
-    ..
+    -DDUCKDB_EXTENSION_CONFIGS="$PWD/../bundled_extensions.cmake"
 ninja
 popd
 
@@ -123,11 +124,12 @@ export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_TOOLCHAIN_FILE=${VCPKG_TOOLCHAIN_PATH} 
 
 cmake ${CMAKE_ARGS} \
     -GNinja \
+    -S .. \
+    -B . \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
     -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-g14eca11bd9 \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
-    -DWITH_INTERNAL_ICU=OFF \
-    ..
+    -DWITH_INTERNAL_ICU=OFF
 
 ninja
 ninja install
