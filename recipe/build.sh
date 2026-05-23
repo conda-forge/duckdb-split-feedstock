@@ -81,55 +81,18 @@ duckdb_extension_load(spatial
     )
 EOF
 
-# Use duckdb-spatial's vcpkg_ports overlay deps through the merged manifest flow.
+# Use duckdb-spatial's vcpkg_ports overlay deps if vcpkg is available
 if [[ -z "${VCPKG_ROOT:-}" ]] && [[ -n "${LIBRARY_PREFIX:-}" ]]; then
     export VCPKG_ROOT="${LIBRARY_PREFIX}/share/vcpkg"
 fi
 
-if [[ -z "${VCPKG_TOOLCHAIN_PATH:-}" ]]; then
-    candidates=(
-        "${VCPKG_ROOT:-}/scripts/buildsystems/vcpkg.cmake"
-    )
-    for candidate in "${candidates[@]}"; do
-        if [[ -f "${candidate}" ]]; then
-            export VCPKG_TOOLCHAIN_PATH="${candidate}"
-            break
-        fi
-    done
-fi
-
-if [[ -z "${VCPKG_TOOLCHAIN_PATH:-}" ]]; then
-    echo "VCPKG toolchain file was not found. Looked in:" >&2
-    for candidate in "${candidates[@]}"; do
-        echo "  - ${candidate}" >&2
-    done
-    echo "Install the 'vcpkg' package in build requirements or set VCPKG_TOOLCHAIN_PATH explicitly." >&2
-    exit 1
-fi
-
-# generate the merged vcpkg manifest through extension-configuration mode.
-mkdir -p extension_configuration
-pushd extension_configuration
 cmake ${CMAKE_ARGS} \
     -GNinja \
-    -S ../.. \
-    -B . \
-    -DEXTENSION_CONFIG_BUILD=TRUE \
-    -DVCPKG_BUILD=1 \
-    -DDUCKDB_EXTENSION_CONFIGS="$PWD/../bundled_extensions.cmake"
-ninja
-popd
-
-export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_TOOLCHAIN_FILE=${VCPKG_TOOLCHAIN_PATH} -DVCPKG_BUILD=1 -DVCPKG_MANIFEST_DIR=$PWD/extension_configuration"
-
-cmake ${CMAKE_ARGS} \
-    -GNinja \
-    -S .. \
-    -B . \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
     -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-g14eca11bd9 \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
-    -DWITH_INTERNAL_ICU=OFF
+    -DWITH_INTERNAL_ICU=OFF \
+    ..
 
 ninja
 ninja install
