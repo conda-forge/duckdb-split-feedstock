@@ -18,6 +18,10 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '19'
+expat:
+- '2'
+geos:
+- 3.14.1
 icu:
 - '78'
 libcurl:

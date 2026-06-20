@@ -15,7 +15,7 @@ source:
       - patches/0006-Install-.h-headers.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -25,11 +25,15 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
+    - vcpkg
   host:
     - icu
     - openssl
     - libcurl
     - croaring
+    - expat
+    - geos
+    - libzlib
 
 outputs:
   - name: libduckdb
@@ -263,7 +267,34 @@ outputs:
         - croaring
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
-        - croaring
+    test:
+      commands:
+        - {{ RECIPE_DIR }}/test-extension.sh
+      requires:
+        - duckdb-cli
+        - jq
+  - name: duckdb-extension-spatial
+    build:
+      binary_relocation: false
+    script: install-extension.sh
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
+        - python *
+        - macholib
+      host:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
+        - openssl
+        - libcurl
+        - expat
+        - geos
+        - libzlib
+      run:
+        - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
         - {{ RECIPE_DIR }}/test-extension.sh

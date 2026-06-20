@@ -1,0 +1,29 @@
+From 24d9deb96df44b8f69348ba080cabb9ddad0a0c2 Mon Sep 17 00:00:00 2001
+From: Flavio Martins <flavio.f.martins@tecnico.ulisboa.pt>
+Date: Fri, 22 May 2026 00:40:20 +0100
+Subject: [PATCH] Use standard CMake SQLite3 package
+
+---
+ CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 93c0fcf..c3f88ee 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -54,11 +54,11 @@ find_package(ZLIB REQUIRED)
+ find_package(PROJ CONFIG REQUIRED)
+ find_package(GDAL CONFIG REQUIRED)
+ find_package(EXPAT REQUIRED)
+-find_package(unofficial-sqlite3 CONFIG REQUIRED)
++find_package(SQLite3 REQUIRED)
+ 
+ # Important: The link order matters, its the reverse order of dependency
+ set(EXTENSION_DEPENDENCIES GDAL::GDAL PROJ::proj EXPAT::EXPAT
+-                           unofficial::sqlite3::sqlite3 ZLIB::ZLIB)
++                           SQLite::SQLite3 ZLIB::ZLIB)
+ 
+ if(SPATIAL_USE_GEOS)
+   message(STATUS "Building with GEOS functionality")
+-- 
+2.54.0

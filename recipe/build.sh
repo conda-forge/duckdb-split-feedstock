@@ -2,6 +2,8 @@
 
 set -euxo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 mkdir -p build
 pushd build
 
@@ -68,12 +70,30 @@ duckdb_extension_load(ducklake
     GIT_URL https://github.com/duckdb/ducklake
     GIT_TAG e6a3bd0a8554b74d97cbc7e8acc3e2c9f01a0385
 )
+
+# https://github.com/duckdb/duckdb/blob/v1.5.3/.github/config/extensions/spatial.cmake
+duckdb_extension_load(spatial
+    DONT_LINK LOAD_TESTS
+    GIT_URL https://github.com/duckdb/duckdb-spatial
+    GIT_TAG b68b309d371dba936c5bb362980e559b7756b16d
+    INCLUDE_DIR src/spatial
+    TEST_DIR test/sql
+    )
 EOF
+
+# Use duckdb-spatial's vcpkg_ports overlay deps if vcpkg is available
+if [[ -z "${VCPKG_ROOT:-}" ]] && [[ -n "${LIBRARY_PREFIX:-}" ]]; then
+    export VCPKG_ROOT="${LIBRARY_PREFIX}/share/vcpkg"
+fi
+
+if [[ -z "${VCPKG_TOOLCHAIN_PATH:-}" ]]; then
+    export VCPKG_TOOLCHAIN_PATH="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+fi
 
 cmake ${CMAKE_ARGS} \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
-    -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-g14eca11 \
+    -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-g14eca11bd9 \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
     -DWITH_INTERNAL_ICU=OFF \
     ..
