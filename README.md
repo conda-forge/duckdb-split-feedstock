@@ -1,5 +1,5 @@
-About duckdb-split-feedstock
-============================
+About duckdb-cli-feedstock
+==========================
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/duckdb-split-feedstock/blob/main/LICENSE.txt)
 
@@ -16,7 +16,6 @@ Documentation: https://duckdb.org/docs/index.html
 DuckDB is an embedded database designed to execute analytical SQL queries
 fast while embedded in another process. It is designed to be easy to
 install and easy to use.
-
 
 Current build status
 ====================
@@ -56,6 +55,13 @@ Current build status
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/duckdb-split-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_" alt="variant">
                 </a>
               </td>
+            </tr><tr>
+              <td>win_64</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=21046&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/duckdb-split-feedstock?branchName=main&jobName=win&configuration=win%20win_64_" alt="variant">
+                </a>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -80,10 +86,10 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libduckdb-green.svg)](https://anaconda.org/conda-forge/libduckdb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libduckdb.svg)](https://anaconda.org/conda-forge/libduckdb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libduckdb.svg)](https://anaconda.org/conda-forge/libduckdb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libduckdb.svg)](https://anaconda.org/conda-forge/libduckdb) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libduckdb--devel-green.svg)](https://anaconda.org/conda-forge/libduckdb-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libduckdb-devel.svg)](https://anaconda.org/conda-forge/libduckdb-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libduckdb-devel.svg)](https://anaconda.org/conda-forge/libduckdb-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libduckdb-devel.svg)](https://anaconda.org/conda-forge/libduckdb-devel) |
 
-Installing duckdb-split
-=======================
+Installing duckdb-cli
+=====================
 
-Installing `duckdb-split` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `duckdb-cli` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
@@ -169,17 +175,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating duckdb-split-feedstock
-===============================
+Updating duckdb-cli-feedstock
+=============================
 
-If you would like to improve the duckdb-split recipe or build a new
+If you would like to improve the duckdb-cli recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/duckdb-split-feedstock are
+Note that all branches in the conda-forge/duckdb-cli-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks, and branches in the main repository should only be used to
 build distinct package versions.
