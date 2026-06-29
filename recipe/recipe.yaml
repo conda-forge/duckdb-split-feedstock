@@ -16,6 +16,7 @@ source:
 
 build:
   number: 1
+  skip: win
 
 outputs:
   # Build DuckDB and all extensions once, then split the artifacts into the
