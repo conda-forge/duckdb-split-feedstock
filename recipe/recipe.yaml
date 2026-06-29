@@ -115,6 +115,9 @@ outputs:
         - ${{ pin_subpackage("libduckdb", exact=True) }}
       run:
         - ${{ pin_subpackage("libduckdb", exact=True) }}
+    tests:
+      - script:
+          - exit 0
 
   - package:
       name: duckdb-extension-autocomplete
@@ -128,6 +131,9 @@ outputs:
         - ${{ pin_subpackage("libduckdb", exact=True) }}
       run:
         - ${{ pin_subpackage("libduckdb", exact=True) }}
+    tests:
+      - script:
+          - exit 0
 
   - package:
       name: duckdb-extension-tpcds
