@@ -43,7 +43,9 @@ outputs:
 
   - package:
       name: libduckdb
-    inherit: duckdb-build
+    inherit:
+      from: duckdb-build
+      run_exports: false
     build:
       script:
         file: install-lib.sh
@@ -63,7 +65,9 @@ outputs:
 
   - package:
       name: libduckdb-devel
-    inherit: duckdb-build
+    inherit:
+      from: duckdb-build
+      run_exports: false
     build:
       script:
         file: install-headers.sh
@@ -79,7 +83,9 @@ outputs:
 
   - package:
       name: duckdb-cli
-    inherit: duckdb-build
+    inherit:
+      from: duckdb-build
+      run_exports: false
     build:
       script:
         file: install-cli.sh
@@ -93,19 +99,26 @@ outputs:
       run:
         - ${{ pin_subpackage("libduckdb", exact=True) }}
     tests:
-      - files:
-          recipe:
-            - test-builtin-extensions.sh
-        requirements:
+      - requirements:
           run:
             - jq
-        script:
-          - duckdb -version
-          - bash test-builtin-extensions.sh
+        script: |
+          set -euo pipefail
+          duckdb -version
+          # Check that the statically linked (built-in) extensions are as expected.
+          QUERY="select extension_name from duckdb_extensions() where (installed and install_mode = 'STATICALLY_LINKED');"
+          duckdb -c "${QUERY}"
+          duckdb -json -c "${QUERY}" | jq -r -e '
+            map(.extension_name) as $actual
+            | (["autocomplete", "core_functions", "icu", "json", "parquet", "shell"] | sort) as $expected
+            | ($actual | sort) == $expected
+          '
 
   - package:
       name: duckdb-extension-json
-    inherit: duckdb-build
+    inherit:
+      from: duckdb-build
+      run_exports: false
     # Empty placeholder package as this is now built-in
     build:
       script:
@@ -121,7 +134,9 @@ outputs:
 
   - package:
       name: duckdb-extension-autocomplete
-    inherit: duckdb-build
+    inherit:
+      from: duckdb-build
+      run_exports: false
     # Empty placeholder package as this is now built-in
     build:
       script:
@@ -137,7 +152,9 @@ outputs:
 
   - package:
       name: duckdb-extension-tpcds
-    inherit: duckdb-build
+    inherit:
+      from: duckdb-build
+      run_exports: false
     build:
       dynamic_linking:
         binary_relocation: false
@@ -153,19 +170,28 @@ outputs:
       run:
         - ${{ pin_subpackage("libduckdb", exact=True) }}
     tests:
-      - files:
-          recipe:
-            - test-extension.sh
-        requirements:
+      - requirements:
           run:
             - duckdb-cli
             - jq
-        script:
-          - bash test-extension.sh tpcds
+        script: |
+          set -euo pipefail
+          EXTENSION_NAME="tpcds"
+          # Only loadable (non-statically-linked) extensions should be present.
+          QUERY="select extension_name from duckdb_extensions() where (installed and install_mode != 'STATICALLY_LINKED');"
+          QUERY_RESULT="$(duckdb -json -c "${QUERY}")"
+          if [[ "$(echo "${QUERY_RESULT}" | jq -r '.[].extension_name')" == "${EXTENSION_NAME}" ]]; then
+            echo "Test whether the extension loads in unsigned mode"
+            duckdb -unsigned -bail -json -c "LOAD ${EXTENSION_NAME};"
+          else
+            exit 1
+          fi
 
   - package:
       name: duckdb-extension-httpfs
-    inherit: duckdb-build
+    inherit:
+      from: duckdb-build
+      run_exports: false
     build:
       dynamic_linking:
         binary_relocation: false
@@ -183,19 +209,28 @@ outputs:
       run:
         - ${{ pin_subpackage("libduckdb", exact=True) }}
     tests:
-      - files:
-          recipe:
-            - test-extension.sh
-        requirements:
+      - requirements:
           run:
             - duckdb-cli
             - jq
-        script:
-          - bash test-extension.sh httpfs
+        script: |
+          set -euo pipefail
+          EXTENSION_NAME="httpfs"
+          # Only loadable (non-statically-linked) extensions should be present.
+          QUERY="select extension_name from duckdb_extensions() where (installed and install_mode != 'STATICALLY_LINKED');"
+          QUERY_RESULT="$(duckdb -json -c "${QUERY}")"
+          if [[ "$(echo "${QUERY_RESULT}" | jq -r '.[].extension_name')" == "${EXTENSION_NAME}" ]]; then
+            echo "Test whether the extension loads in unsigned mode"
+            duckdb -unsigned -bail -json -c "LOAD ${EXTENSION_NAME};"
+          else
+            exit 1
+          fi
 
   - package:
       name: duckdb-extension-fts
-    inherit: duckdb-build
+    inherit:
+      from: duckdb-build
+      run_exports: false
     build:
       dynamic_linking:
         binary_relocation: false
@@ -212,19 +247,28 @@ outputs:
       run:
         - ${{ pin_subpackage("libduckdb", exact=True) }}
     tests:
-      - files:
-          recipe:
-            - test-extension.sh
-        requirements:
+      - requirements:
           run:
             - duckdb-cli
             - jq
-        script:
-          - bash test-extension.sh fts
+        script: |
+          set -euo pipefail
+          EXTENSION_NAME="fts"
+          # Only loadable (non-statically-linked) extensions should be present.
+          QUERY="select extension_name from duckdb_extensions() where (installed and install_mode != 'STATICALLY_LINKED');"
+          QUERY_RESULT="$(duckdb -json -c "${QUERY}")"
+          if [[ "$(echo "${QUERY_RESULT}" | jq -r '.[].extension_name')" == "${EXTENSION_NAME}" ]]; then
+            echo "Test whether the extension loads in unsigned mode"
+            duckdb -unsigned -bail -json -c "LOAD ${EXTENSION_NAME};"
+          else
+            exit 1
+          fi
 
   - package:
       name: duckdb-extension-tpch
-    inherit: duckdb-build
+    inherit:
+      from: duckdb-build
+      run_exports: false
     build:
       dynamic_linking:
         binary_relocation: false
@@ -240,19 +284,28 @@ outputs:
       run:
         - ${{ pin_subpackage("libduckdb", exact=True) }}
     tests:
-      - files:
-          recipe:
-            - test-extension.sh
-        requirements:
+      - requirements:
           run:
             - duckdb-cli
             - jq
-        script:
-          - bash test-extension.sh tpch
+        script: |
+          set -euo pipefail
+          EXTENSION_NAME="tpch"
+          # Only loadable (non-statically-linked) extensions should be present.
+          QUERY="select extension_name from duckdb_extensions() where (installed and install_mode != 'STATICALLY_LINKED');"
+          QUERY_RESULT="$(duckdb -json -c "${QUERY}")"
+          if [[ "$(echo "${QUERY_RESULT}" | jq -r '.[].extension_name')" == "${EXTENSION_NAME}" ]]; then
+            echo "Test whether the extension loads in unsigned mode"
+            duckdb -unsigned -bail -json -c "LOAD ${EXTENSION_NAME};"
+          else
+            exit 1
+          fi
 
   - package:
       name: duckdb-extension-ducklake
-    inherit: duckdb-build
+    inherit:
+      from: duckdb-build
+      run_exports: false
     build:
       dynamic_linking:
         binary_relocation: false
@@ -268,17 +321,23 @@ outputs:
         - croaring
       run:
         - ${{ pin_subpackage("libduckdb", exact=True) }}
-        - croaring
     tests:
-      - files:
-          recipe:
-            - test-extension.sh
-        requirements:
+      - requirements:
           run:
             - duckdb-cli
             - jq
-        script:
-          - bash test-extension.sh ducklake
+        script: |
+          set -euo pipefail
+          EXTENSION_NAME="ducklake"
+          # Only loadable (non-statically-linked) extensions should be present.
+          QUERY="select extension_name from duckdb_extensions() where (installed and install_mode != 'STATICALLY_LINKED');"
+          QUERY_RESULT="$(duckdb -json -c "${QUERY}")"
+          if [[ "$(echo "${QUERY_RESULT}" | jq -r '.[].extension_name')" == "${EXTENSION_NAME}" ]]; then
+            echo "Test whether the extension loads in unsigned mode"
+            duckdb -unsigned -bail -json -c "LOAD ${EXTENSION_NAME};"
+          else
+            exit 1
+          fi
 
 about:
   homepage: https://www.duckdb.org/
