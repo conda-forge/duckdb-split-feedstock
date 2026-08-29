@@ -15,8 +15,8 @@ source:
       - patches/0006-Install-.h-headers.patch
 
 build:
-  number: 0
-  skip: true  # [win]
+  number: 1
+  skip: true  # [win and x86_64]
 
 requirements:
   build:
@@ -25,6 +25,7 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
+    - python *  # [win]
   host:
     - icu
     - openssl
@@ -33,7 +34,8 @@ requirements:
 
 outputs:
   - name: libduckdb
-    script: install-lib.sh
+    script: install-lib.sh  # [unix]
+    script: install-lib.bat  # [win]
     build:
       run_exports:
         - {{ pin_subpackage("libduckdb", max_pin="x.x.x") }}
@@ -49,9 +51,12 @@ outputs:
         - icu
     test:
       commands:
-        - test -f $PREFIX/lib/libduckdb${SHLIB_EXT}
+        - test -f $PREFIX/lib/libduckdb${SHLIB_EXT}  # [unix]
+        - if not exist %LIBRARY_BIN%\duckdb.dll exit 1  # [win]
+        - powershell -ExecutionPolicy Bypass -File "%RECIPE_DIR%\test-pe.ps1" "%LIBRARY_BIN%\duckdb.dll"  # [win]
   - name: libduckdb-devel
-    script: install-headers.sh
+    script: install-headers.sh  # [unix]
+    script: install-headers.bat  # [win]
     build:
       run_exports:
         - {{ pin_subpackage("libduckdb", max_pin="x.x.x") }}
@@ -68,10 +73,18 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - test -f $PREFIX/include/duckdb.h
-        - test -f $PREFIX/include/duckdb/common/adbc/adbc.h
+        - test -f $PREFIX/include/duckdb.h  # [unix]
+        - test -f $PREFIX/include/duckdb/common/adbc/adbc.h  # [unix]
+        - if not exist %LIBRARY_INC%\duckdb.h exit 1  # [win]
+        - if not exist %LIBRARY_INC%\duckdb\common\adbc\adbc.h exit 1  # [win]
+        - if not exist %LIBRARY_LIB%\duckdb.lib exit 1  # [win]
+        - if not exist %LIBRARY_LIB%\cmake\DuckDB\DuckDBConfig.cmake exit 1  # [win]
+        - call "%RECIPE_DIR%\test-consumer.bat"  # [win]
+      requires:
+        - {{ compiler('c') }}  # [win]
   - name: duckdb-cli
-    script: install-cli.sh
+    script: install-cli.sh  # [unix]
+    script: install-cli.bat  # [win]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -86,11 +99,14 @@ outputs:
     test:
       commands:
         - duckdb -version
-        - {{ RECIPE_DIR }}/test-builtin-extensions.sh
+        - {{ RECIPE_DIR }}/test-builtin-extensions.sh  # [unix]
+        - powershell -ExecutionPolicy Bypass -File "%RECIPE_DIR%\test-builtin-extensions.ps1"  # [win]
+        - powershell -ExecutionPolicy Bypass -File "%RECIPE_DIR%\test-pe.ps1" "%LIBRARY_BIN%\duckdb.exe"  # [win]
       requires:
-        - jq
+        - jq  # [unix]
   - name: duckdb-extension-json
-    script: noop.sh
+    script: noop.sh  # [unix]
+    script: noop.bat  # [win]
     # Empty placeholder package as this now built-in
     # We need to use the same dependencies as in the main build to make it work in cross-compilation
     requirements:
@@ -107,32 +123,11 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - exit 0
-  - name: duckdb-extension-tpcds
-    build:
-      binary_relocation: false
-    script: install-extension.sh
-    requirements:
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - {{ stdlib("c") }}
-        - cmake
-        - ninja
-        - python *
-        - macholib
-      host:
-        - {{ pin_subpackage("libduckdb", exact=True) }}
-      run:
-        - {{ pin_subpackage("libduckdb", exact=True) }}
-    test:
-      commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
-      requires:
-        - duckdb-cli
-        - jq
+        - exit 0  # [unix]
+        - exit /b 0  # [win]
   - name: duckdb-extension-autocomplete
-    script: noop.sh
+    script: noop.sh  # [unix]
+    script: noop.bat  # [win]
     # Empty placeholder package as this now built-in
     # We need to use the same dependencies as in the main build to make it work in cross-compilation
     requirements:
@@ -149,11 +144,13 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - exit 0
+        - exit 0  # [unix]
+        - exit /b 0  # [win]
   - name: duckdb-extension-tpcds
     build:
       binary_relocation: false
-    script: install-extension.sh
+    script: install-extension.sh  # [unix]
+    script: install-extension.bat  # [win]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -169,12 +166,14 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh  # [unix]
+        - powershell -ExecutionPolicy Bypass -File "%RECIPE_DIR%\test-extension.ps1" tpcds  # [win]
       requires:
         - duckdb-cli
-        - jq
+        - jq  # [unix]
   - name: duckdb-extension-httpfs
-    script: install-extension.sh
+    script: install-extension.sh  # [unix]
+    script: install-extension.bat  # [win]
     build:
       binary_relocation: false
     requirements:
@@ -194,12 +193,14 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh  # [unix]
+        - powershell -ExecutionPolicy Bypass -File "%RECIPE_DIR%\test-extension.ps1" httpfs  # [win]
       requires:
         - duckdb-cli
-        - jq
+        - jq  # [unix]
   - name: duckdb-extension-fts
-    script: install-extension.sh
+    script: install-extension.sh  # [unix]
+    script: install-extension.bat  # [win]
     build:
       binary_relocation: false
     requirements:
@@ -218,14 +219,16 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh  # [unix]
+        - powershell -ExecutionPolicy Bypass -File "%RECIPE_DIR%\test-extension.ps1" fts  # [win]
       requires:
         - duckdb-cli
-        - jq
+        - jq  # [unix]
   - name: duckdb-extension-tpch
     build:
       binary_relocation: false
-    script: install-extension.sh
+    script: install-extension.sh  # [unix]
+    script: install-extension.bat  # [win]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -241,14 +244,16 @@ outputs:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
       commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh  # [unix]
+        - powershell -ExecutionPolicy Bypass -File "%RECIPE_DIR%\test-extension.ps1" tpch  # [win]
       requires:
         - duckdb-cli
-        - jq
+        - jq  # [unix]
   - name: duckdb-extension-ducklake
     build:
       binary_relocation: false
-    script: install-extension.sh
+    script: install-extension.sh  # [unix]
+    script: install-extension.bat  # [win]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -266,10 +271,11 @@ outputs:
         - croaring
     test:
       commands:
-        - {{ RECIPE_DIR }}/test-extension.sh
+        - {{ RECIPE_DIR }}/test-extension.sh  # [unix]
+        - powershell -ExecutionPolicy Bypass -File "%RECIPE_DIR%\test-extension.ps1" ducklake  # [win]
       requires:
         - duckdb-cli
-        - jq
+        - jq  # [unix]
 
 about:
   home: https://www.duckdb.org/
