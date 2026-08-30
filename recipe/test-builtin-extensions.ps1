@@ -6,9 +6,9 @@ if ($LASTEXITCODE -ne 0) {
 
 $actual = @($json | ConvertFrom-Json | ForEach-Object { $_.extension_name } | Sort-Object)
 $expected = @('autocomplete', 'core_functions', 'icu', 'json', 'parquet', 'shell') | Sort-Object
-$difference = Compare-Object -ReferenceObject $expected -DifferenceObject $actual
-if ($difference) {
-    throw "Unexpected built-in extensions: $($difference | Out-String)"
+if ($actual.Count -ne $expected.Count -or
+    (Compare-Object -ReferenceObject $expected -DifferenceObject $actual)) {
+    throw "Unexpected built-in extensions: $($actual -join ', ')"
 }
 
 & duckdb -bail -c "select 42 as answer;"

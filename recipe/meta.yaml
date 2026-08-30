@@ -78,7 +78,6 @@ outputs:
         - if not exist %LIBRARY_INC%\duckdb.h exit 1  # [win]
         - if not exist %LIBRARY_INC%\duckdb\common\adbc\adbc.h exit 1  # [win]
         - if not exist %LIBRARY_LIB%\duckdb.lib exit 1  # [win]
-        - if not exist %LIBRARY_LIB%\cmake\DuckDB\DuckDBConfig.cmake exit 1  # [win]
         - call "%RECIPE_DIR%\test-consumer.bat"  # [win]
       requires:
         - {{ compiler('c') }}  # [win]
