@@ -49,7 +49,7 @@ echo     GIT_TAG d8a1881e22516ea3d186d73e83c65fe5bd1a1dc4
 echo ^)
 ) > build\bundled_extensions.cmake
 
-"%PYTHON%" scripts\windows_ci.py
+"%BUILD_PREFIX%\python.exe" scripts\windows_ci.py
 if errorlevel 1 exit /b 1
 
 cmake -S . -B build -G Ninja %CMAKE_ARGS% ^
