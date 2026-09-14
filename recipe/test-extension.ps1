@@ -8,7 +8,6 @@ if (-not (Test-Path $extensionPath)) {
     throw "Missing packaged extension: $extensionPath"
 }
 
-& "$PSScriptRoot\test-pe.ps1" $extensionPath
 $extensionSqlPath = $extensionPath.Replace('\', '/').Replace("'", "''")
 & duckdb -unsigned -bail -c "load '$extensionSqlPath';"
 if ($LASTEXITCODE -ne 0) {

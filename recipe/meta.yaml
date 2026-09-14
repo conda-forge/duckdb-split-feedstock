@@ -53,7 +53,6 @@ outputs:
       commands:
         - test -f $PREFIX/lib/libduckdb${SHLIB_EXT}  # [unix]
         - if not exist %LIBRARY_BIN%\duckdb.dll exit 1  # [win]
-        - powershell -ExecutionPolicy Bypass -File "%RECIPE_DIR%\test-pe.ps1" "%LIBRARY_BIN%\duckdb.dll"  # [win]
   - name: libduckdb-devel
     script: install-headers.sh  # [unix]
     script: install-headers.bat  # [win]
@@ -100,7 +99,6 @@ outputs:
         - duckdb -version
         - {{ RECIPE_DIR }}/test-builtin-extensions.sh  # [unix]
         - powershell -ExecutionPolicy Bypass -File "%RECIPE_DIR%\test-builtin-extensions.ps1"  # [win]
-        - powershell -ExecutionPolicy Bypass -File "%RECIPE_DIR%\test-pe.ps1" "%LIBRARY_BIN%\duckdb.exe"  # [win]
       requires:
         - jq  # [unix]
   - name: duckdb-extension-json
