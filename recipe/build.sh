@@ -46,19 +46,17 @@ duckdb_extension_statically_link(autocomplete)
 #
 ## Extensions that are not linked
 #
-duckdb_extension_load(tpcds DONT_LINK)
-duckdb_extension_load(tpch DONT_LINK)
+duckdb_extension_load(tpcds)
+duckdb_extension_load(tpch)
 
 # https://github.com/duckdb/duckdb/blob/v2.0.0/.github/config/extensions/httpfs.cmake
 duckdb_extension_load(httpfs
-    DONT_LINK
     GIT_URL https://github.com/duckdb/duckdb-httpfs
     GIT_TAG 77392a72077a85897db2519fae11e2c0da972b8a
 )
 
 # https://github.com/duckdb/duckdb/blob/v2.0.0/.github/config/extensions/fts.cmake
 duckdb_extension_load(fts
-    DONT_LINK
     GIT_URL https://github.com/duckdb/duckdb-fts
     GIT_TAG 2266e67d01c737cb65114e77c7c672e58869a635
     APPLY_PATCHES
@@ -66,7 +64,6 @@ duckdb_extension_load(fts
 
 # https://github.com/duckdb/duckdb/blob/v2.0.0/.github/config/extensions/ducklake.cmake
 duckdb_extension_load(ducklake
-    DONT_LINK
     GIT_URL https://github.com/duckdb/ducklake
     GIT_TAG 417a9117f590e8141742ac0579d02f6a90162e37
     APPLY_PATCHES
