@@ -16,8 +16,6 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '21'
-icu:
-- '78'
 libcurl:
 - '8'
 macos_machine:
