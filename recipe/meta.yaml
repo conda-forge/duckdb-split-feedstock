@@ -26,7 +26,6 @@ requirements:
     - cmake
     - ninja
   host:
-    - icu
     - openssl
     - libcurl
     - croaring
@@ -46,7 +45,8 @@ outputs:
         - ninja
       host:
         - openssl
-        - icu
+        - libcurl
+        - croaring
     test:
       commands:
         - test -f $PREFIX/lib/libduckdb${SHLIB_EXT}
