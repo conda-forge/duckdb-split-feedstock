@@ -11,7 +11,7 @@ diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
 index 24afa3db42..292081b69e 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -137,6 +137,7 @@ install(
+@@ -135,6 +135,7 @@
    DIRECTORY "${PROJECT_SOURCE_DIR}/src/include/duckdb"
    DESTINATION "${INSTALL_INCLUDE_DIR}"
    FILES_MATCHING
