@@ -7,6 +7,7 @@ pushd build
 
 # The trailing ; is important!
 export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=23 -DEXTENSION_DIRECTORIES=~/.duckdb/extensions;$PREFIX/duckdb/extensions;"
+export CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 
 if [[ "${target_platform}" == "linux-64" ]]; then
     DUCKDB_ARCH='linux_amd64'
