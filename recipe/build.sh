@@ -34,6 +34,8 @@ fi
 
 # Persist DuckDB architecture for extension installation scripts.
 echo "${DUCKDB_ARCH}" > "$(pwd)/.duckdb_arch"
+DUCKDB_BUILD_VERSION="v${PKG_VERSION}-0-gd54cbbe3df"
+echo "${DUCKDB_BUILD_VERSION}" > "$(pwd)/.duckdb_version"
 
 export OPENSSL_ROOT_DIR="${PREFIX}"
 
@@ -78,7 +80,7 @@ EOF
 cmake ${CMAKE_ARGS} \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
-    -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-gd54cbbe3df \
+    -DOVERRIDE_GIT_DESCRIBE="${DUCKDB_BUILD_VERSION}" \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
     ..
 
