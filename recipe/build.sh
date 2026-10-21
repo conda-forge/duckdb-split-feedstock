@@ -10,6 +10,10 @@ export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=23 -DEXTENSION_DIRECTORIES
 export CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 
 if [[ "${target_platform}" == "linux-64" ]]; then
+    export DUCKDB_LINKER=mold
+fi
+
+if [[ "${target_platform}" == "linux-64" ]]; then
     DUCKDB_ARCH='linux_amd64'
 elif [[ "${target_platform}" == "linux-ppc64le" ]]; then
     DUCKDB_ARCH='linux_ppc64le'
