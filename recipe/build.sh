@@ -6,7 +6,12 @@ mkdir -p build
 pushd build
 
 # The trailing ; is important!
-export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=17 -DEXTENSION_DIRECTORIES=~/.duckdb/extensions;$PREFIX/duckdb/extensions;"
+export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=23 -DEXTENSION_DIRECTORIES=~/.duckdb/extensions;$PREFIX/duckdb/extensions;"
+export CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
+
+if [[ "${target_platform}" == "linux-64" ]]; then
+    export DUCKDB_LINKER=mold
+fi
 
 if [[ "${target_platform}" == "linux-64" ]]; then
     DUCKDB_ARCH='linux_amd64'
@@ -29,6 +34,8 @@ fi
 
 # Persist DuckDB architecture for extension installation scripts.
 echo "${DUCKDB_ARCH}" > "$(pwd)/.duckdb_arch"
+DUCKDB_BUILD_VERSION="v${PKG_VERSION}-0-gd54cbbe3df"
+echo "${DUCKDB_BUILD_VERSION}" > "$(pwd)/.duckdb_version"
 
 export OPENSSL_ROOT_DIR="${PREFIX}"
 
@@ -41,42 +48,40 @@ duckdb_extension_load(icu)
 duckdb_extension_load(json)
 duckdb_extension_load(parquet)
 duckdb_extension_load(autocomplete)
+duckdb_extension_statically_link(autocomplete)
 
 #
 ## Extensions that are not linked
 #
-duckdb_extension_load(tpcds DONT_LINK)
-duckdb_extension_load(tpch DONT_LINK)
+duckdb_extension_load(tpcds)
+duckdb_extension_load(tpch)
 
-# https://github.com/duckdb/duckdb/blob/v1.5.6/.github/config/extensions/httpfs.cmake
+# https://github.com/duckdb/duckdb/blob/v2.0.0/.github/config/extensions/httpfs.cmake
 duckdb_extension_load(httpfs
-    DONT_LINK
     GIT_URL https://github.com/duckdb/duckdb-httpfs
-    GIT_TAG 4bc690dba4496c765777a0269d48fdbaff7cdc11
+    GIT_TAG 77392a72077a85897db2519fae11e2c0da972b8a
+)
+
+# https://github.com/duckdb/duckdb/blob/v2.0.0/.github/config/extensions/fts.cmake
+duckdb_extension_load(fts
+    GIT_URL https://github.com/duckdb/duckdb-fts
+    GIT_TAG 2266e67d01c737cb65114e77c7c672e58869a635
     APPLY_PATCHES
 )
 
-# https://github.com/duckdb/duckdb/blob/v1.5.6/.github/config/extensions/fts.cmake
-duckdb_extension_load(fts
-    DONT_LINK
-    GIT_URL https://github.com/duckdb/duckdb-fts
-    GIT_TAG 6814ec9a7d5fd63500176507262b0dbf7cea0095
-)
-
-# https://github.com/duckdb/duckdb/blob/v1.5.6/.github/config/extensions/ducklake.cmake
+# https://github.com/duckdb/duckdb/blob/v2.0.0/.github/config/extensions/ducklake.cmake
 duckdb_extension_load(ducklake
-    DONT_LINK
     GIT_URL https://github.com/duckdb/ducklake
-    GIT_TAG ac7595b0a1305bea3d4cfaca763b0ce964c763a2
+    GIT_TAG 417a9117f590e8141742ac0579d02f6a90162e37
+    APPLY_PATCHES
 )
 EOF
 
 cmake ${CMAKE_ARGS} \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
-    -DOVERRIDE_GIT_DESCRIBE=v$PKG_VERSION-0-gd8cdaa33fd \
+    -DOVERRIDE_GIT_DESCRIBE="${DUCKDB_BUILD_VERSION}" \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
-    -DWITH_INTERNAL_ICU=OFF \
     ..
 
 ninja

@@ -1,5 +1,5 @@
 {% set name = "duckdb" %}
-{% set version = "1.5.6" %}
+{% set version = "2.0.0" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,7 +8,7 @@ package:
 source:
     # (!!) Please also update the git used for OVERRIDE_GIT_DESCRIBE in the build scripts.
   - url: https://github.com/duckdb/duckdb/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 1fadcbe9e69e1470f9093b6bcde08daf477d729c449e59a807f45c346622099b
+    sha256: 7e89053255046bfb26afbd7f524a2fb84df7dbef496aa911ea35e4a1182fdc00
     patches:
       - patches/0001-Dynamically-link-the-cli.patch
       - patches/0002-Make-extensions-prefix-free.patch
@@ -25,8 +25,8 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
+    - mold      # [linux64]
   host:
-    - icu
     - openssl
     - libcurl
     - croaring
@@ -44,9 +44,11 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
+        - mold      # [linux64]
       host:
         - openssl
-        - icu
+        - libcurl
+        - croaring
     test:
       commands:
         - test -f $PREFIX/lib/libduckdb${SHLIB_EXT}
@@ -62,6 +64,7 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
+        - mold      # [linux64]
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -79,6 +82,7 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
+        - mold      # [linux64]
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -100,6 +104,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux64]
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
@@ -119,6 +124,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux64]
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
@@ -138,6 +144,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux64]
         - python *
         - macholib
       host:
@@ -161,6 +168,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux64]
         - python *
         - macholib
       host:
@@ -186,6 +194,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux64]
         - python *
         - macholib
       host:
@@ -210,6 +219,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux64]
         - python *
         - macholib
       host:
@@ -233,6 +243,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux64]
         - python *
         - macholib
       host:

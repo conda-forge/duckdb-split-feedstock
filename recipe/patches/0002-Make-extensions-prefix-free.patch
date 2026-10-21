@@ -11,7 +11,7 @@ diff --git a/extension/extension_build_tools.cmake b/extension/extension_build_t
 index 977a4b2e36..181af34548 100644
 --- a/extension/extension_build_tools.cmake
 +++ b/extension/extension_build_tools.cmake
-@@ -121,6 +121,14 @@ function(build_loadable_extension_directory NAME ABI_TYPE OUTPUT_DIRECTORY EXTEN
+@@ -284,9 +284,17 @@
      set_target_properties(${TARGET_NAME} PROPERTIES DEFINE_SYMBOL "")
      set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME ${NAME})
      set_target_properties(${TARGET_NAME} PROPERTIES PREFIX "")
@@ -23,6 +23,9 @@ index 977a4b2e36..181af34548 100644
 +          COMMENT "Removing absolute RPATH to ensure we don't do prefix replacement on the library"
 +      )
 +    endif()
+     if(NOT EXTENSION_STATIC_BUILD)
+         set_property(TARGET ${TARGET_NAME} PROPERTY DUCKDB_DYNAMIC_LOADABLE_EXTENSION TRUE)
+     endif()
      if(${IGNORE_WARNINGS} GREATER -1)
          disable_target_warnings(${TARGET_NAME})
      endif()
