@@ -25,6 +25,7 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
+    - mold      # [linux]
   host:
     - openssl
     - libcurl
@@ -43,6 +44,7 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
+        - mold      # [linux]
       host:
         - openssl
         - libcurl
@@ -62,6 +64,7 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
+        - mold      # [linux]
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -79,6 +82,7 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
+        - mold      # [linux]
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -100,6 +104,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux]
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
@@ -119,6 +124,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux]
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
@@ -138,6 +144,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux]
         - python *
         - macholib
       host:
@@ -161,6 +168,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux]
         - python *
         - macholib
       host:
@@ -186,6 +194,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux]
         - python *
         - macholib
       host:
@@ -210,6 +219,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux]
         - python *
         - macholib
       host:
@@ -233,6 +243,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
+        - mold      # [linux]
         - python *
         - macholib
       host:
