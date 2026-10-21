@@ -5,7 +5,7 @@ set -euxo pipefail
 PKG_PREFIX='duckdb-extension-'
 EXTENSION_NAME="${PKG_NAME#$PKG_PREFIX}"
 
-DUCKDB_ARCH="$(cat ./build/.duckdb_arch)"
+DUCKDB_ARCH="$(head -n 1 ./build/duckdb_platform_out)"
 DUCKDB_VERSION="v${PKG_VERSION}"
 
 mkdir -p "${PREFIX}/duckdb/extensions/${DUCKDB_VERSION}/${DUCKDB_ARCH}/"
