@@ -234,7 +234,7 @@ outputs:
         - jq
   - name: duckdb-extension-ducklake
     build:
-      binary_relocation: false
+      binary_relocation: true
     script: install-extension.sh
     requirements:
       build:
@@ -251,7 +251,6 @@ outputs:
         - croaring
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
-        - croaring
     test:
       commands:
         - {{ RECIPE_DIR }}/test-extension.sh
