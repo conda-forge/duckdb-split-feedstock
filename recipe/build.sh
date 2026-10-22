@@ -95,5 +95,5 @@ cmake ${CMAKE_ARGS} \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
     ..
 
-ninja
+ninja -j"${CPU_COUNT}"
 ninja install
