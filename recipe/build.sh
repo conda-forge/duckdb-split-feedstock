@@ -5,15 +5,16 @@ set -euxo pipefail
 mkdir -p build
 pushd build
 
-# The trailing ; is important!
-export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=23 -DCMAKE_LTO=thin -DEXTENSION_DIRECTORIES=~/.duckdb/extensions;$PREFIX/duckdb/extensions;"
+# c++std=23 is used upstream for DuckDB 2.0.0 and above.
+export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=23"
+# quietly ignore deprecated warnings, as they are not actionable for us.
 export CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 
 if [[ "${target_platform}" == linux-* ]]; then
-    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld"
+    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld -DCMAKE_LTO=thin"
 elif [[ "${target_platform}" == osx-* ]]; then
     test -x "${BUILD_PREFIX}/bin/ld64.lld"
-    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld"
+    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld -DCMAKE_LTO=thin"
     export LDFLAGS="${LDFLAGS} --ld-path=${BUILD_PREFIX}/bin/ld64.lld"
 fi
 
@@ -85,6 +86,7 @@ cmake ${CMAKE_ARGS} \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
     -DOVERRIDE_GIT_DESCRIBE="v${PKG_VERSION}" \
     -DGIT_COMMIT_HASH="d54cbbe3df" \
+    -DEXTENSION_DIRECTORIES="~/.duckdb/extensions;$PREFIX/duckdb/extensions;" \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
     ..
 
