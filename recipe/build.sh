@@ -10,11 +10,16 @@ export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=23"
 # quietly ignore deprecated warnings, as they are not actionable for us.
 export CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 
+DUCKDB_LINK_JOBS="${CPU_COUNT:-1}"
+if (( DUCKDB_LINK_JOBS > 8 )); then
+    DUCKDB_LINK_JOBS=8
+fi
+
 if [[ "${target_platform}" == linux-* ]]; then
-    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld -DCMAKE_LTO=thin"
+    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld -DCMAKE_LTO=thin -DDUCKDB_RELEASE_LINK_JOBS=${DUCKDB_LINK_JOBS}"
 elif [[ "${target_platform}" == osx-* ]]; then
     test -x "${BUILD_PREFIX}/bin/ld64.lld"
-    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld -DCMAKE_LTO=thin"
+    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld -DCMAKE_LTO=thin -DDUCKDB_RELEASE_LINK_JOBS=${DUCKDB_LINK_JOBS}"
     export LDFLAGS="${LDFLAGS} --ld-path=${BUILD_PREFIX}/bin/ld64.lld"
 fi
 
