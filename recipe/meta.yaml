@@ -25,7 +25,7 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
-    - lld {{ cxx_compiler_version }}.*  # [linux]
+    - lld {{ cxx_compiler_version }}.*  # [unix]
   host:
     - openssl
     - libcurl
@@ -44,7 +44,7 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
-        - lld {{ cxx_compiler_version }}.*  # [linux]
+        - lld {{ cxx_compiler_version }}.*  # [unix]
       host:
         - openssl
         - libcurl
@@ -64,7 +64,7 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
-        - lld {{ cxx_compiler_version }}.*  # [linux]
+        - lld {{ cxx_compiler_version }}.*  # [unix]
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -82,7 +82,7 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
-        - lld {{ cxx_compiler_version }}.*  # [linux]
+        - lld {{ cxx_compiler_version }}.*  # [unix]
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -104,7 +104,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - lld {{ cxx_compiler_version }}.*  # [linux]
+        - lld {{ cxx_compiler_version }}.*  # [unix]
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
@@ -124,7 +124,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - lld {{ cxx_compiler_version }}.*  # [linux]
+        - lld {{ cxx_compiler_version }}.*  # [unix]
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
@@ -144,7 +144,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - lld {{ cxx_compiler_version }}.*  # [linux]
+        - lld {{ cxx_compiler_version }}.*  # [unix]
         - python *
         - macholib
       host:
@@ -168,7 +168,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - lld {{ cxx_compiler_version }}.*  # [linux]
+        - lld {{ cxx_compiler_version }}.*  # [unix]
         - python *
         - macholib
       host:
@@ -194,7 +194,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - lld {{ cxx_compiler_version }}.*  # [linux]
+        - lld {{ cxx_compiler_version }}.*  # [unix]
         - python *
         - macholib
       host:
@@ -219,7 +219,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - lld {{ cxx_compiler_version }}.*  # [linux]
+        - lld {{ cxx_compiler_version }}.*  # [unix]
         - python *
         - macholib
       host:
@@ -243,7 +243,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - lld {{ cxx_compiler_version }}.*  # [linux]
+        - lld {{ cxx_compiler_version }}.*  # [unix]
         - python *
         - macholib
       host:

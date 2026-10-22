@@ -11,6 +11,10 @@ export CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 
 if [[ "${target_platform}" == linux-* ]]; then
     export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld"
+elif [[ "${target_platform}" == osx-* ]]; then
+    test -x "${BUILD_PREFIX}/bin/ld64.lld"
+    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld"
+    export LDFLAGS="${LDFLAGS} --ld-path=${BUILD_PREFIX}/bin/ld64.lld"
 fi
 
 if [[ "${target_platform}" == "linux-64" ]]; then
