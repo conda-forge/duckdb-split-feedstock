@@ -9,8 +9,8 @@ pushd build
 export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=23 -DCMAKE_LTO=thin -DEXTENSION_DIRECTORIES=~/.duckdb/extensions;$PREFIX/duckdb/extensions;"
 export CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 
-if [[ "${target_platform}" == "linux-64" ]]; then
-    export DUCKDB_LINKER=mold
+if [[ "${target_platform}" == linux-* ]]; then
+    export DUCKDB_LINKER=lld
 fi
 
 if [[ "${target_platform}" == "linux-64" ]]; then
