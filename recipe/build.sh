@@ -10,7 +10,7 @@ export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=23 -DCMAKE_LTO=thin -DEXTE
 export CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 
 if [[ "${target_platform}" == linux-* ]]; then
-    export DUCKDB_LINKER=lld
+    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld"
 fi
 
 if [[ "${target_platform}" == "linux-64" ]]; then
