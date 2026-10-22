@@ -18,9 +18,7 @@ fi
 if [[ "${target_platform}" == linux-* ]]; then
     export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld -DCMAKE_LTO=thin -DDUCKDB_RELEASE_LINK_JOBS=${DUCKDB_LINK_JOBS}"
 elif [[ "${target_platform}" == osx-* ]]; then
-    test -x "${BUILD_PREFIX}/bin/ld64.lld"
-    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld -DCMAKE_LTO=thin -DDUCKDB_RELEASE_LINK_JOBS=${DUCKDB_LINK_JOBS}"
-    export LDFLAGS="${LDFLAGS} --ld-path=${BUILD_PREFIX}/bin/ld64.lld"
+    export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_LTO=thin -DDUCKDB_RELEASE_LINK_JOBS=${DUCKDB_LINK_JOBS}"
 fi
 
 if [[ "${target_platform}" == "linux-64" ]]; then
