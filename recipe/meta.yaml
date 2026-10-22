@@ -135,7 +135,8 @@ outputs:
         - exit 0
   - name: duckdb-extension-tpcds
     build:
-      binary_relocation: true
+      binary_relocation: false  # [osx]
+      binary_relocation: true   # [linux]
     script: install-extension.sh
     requirements:
       build:
@@ -160,7 +161,8 @@ outputs:
   - name: duckdb-extension-httpfs
     script: install-extension.sh
     build:
-      binary_relocation: true
+      binary_relocation: false  # [osx]
+      binary_relocation: true   # [linux]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -186,7 +188,8 @@ outputs:
   - name: duckdb-extension-fts
     script: install-extension.sh
     build:
-      binary_relocation: true
+      binary_relocation: false  # [osx]
+      binary_relocation: true   # [linux]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -210,7 +213,8 @@ outputs:
         - jq
   - name: duckdb-extension-tpch
     build:
-      binary_relocation: true
+      binary_relocation: false  # [osx]
+      binary_relocation: true   # [linux]
     script: install-extension.sh
     requirements:
       build:
@@ -234,7 +238,8 @@ outputs:
         - jq
   - name: duckdb-extension-ducklake
     build:
-      binary_relocation: true
+      binary_relocation: false  # [osx]
+      binary_relocation: true   # [linux]
     script: install-extension.sh
     requirements:
       build:
