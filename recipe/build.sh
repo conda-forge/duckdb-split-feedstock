@@ -5,12 +5,20 @@ set -euxo pipefail
 mkdir -p build
 pushd build
 
-# The trailing ; is important!
-export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=23 -DEXTENSION_DIRECTORIES=~/.duckdb/extensions;$PREFIX/duckdb/extensions;"
+# c++std=23 is used upstream for DuckDB 2.0.0 and above.
+export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=23"
+# quietly ignore deprecated warnings, as they are not actionable for us.
 export CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 
-if [[ "${target_platform}" == "linux-64" ]]; then
-    export DUCKDB_LINKER=mold
+DUCKDB_LINK_JOBS="${CPU_COUNT:-1}"
+if (( DUCKDB_LINK_JOBS > 8 )); then
+    DUCKDB_LINK_JOBS=8
+fi
+
+if [[ "${target_platform}" == linux-* ]]; then
+    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_LINKER=lld -DCMAKE_LTO=thin -DDUCKDB_RELEASE_LINK_JOBS=${DUCKDB_LINK_JOBS}"
+elif [[ "${target_platform}" == osx-* ]]; then
+    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_RELEASE_LINK_JOBS=${DUCKDB_LINK_JOBS}"
 fi
 
 if [[ "${target_platform}" == "linux-64" ]]; then
@@ -34,8 +42,7 @@ fi
 
 # Persist DuckDB architecture for extension installation scripts.
 echo "${DUCKDB_ARCH}" > "$(pwd)/.duckdb_arch"
-DUCKDB_BUILD_VERSION="v${PKG_VERSION}-0-gd54cbbe3df"
-echo "${DUCKDB_BUILD_VERSION}" > "$(pwd)/.duckdb_version"
+echo "v${PKG_VERSION}" > "$(pwd)/.duckdb_version"
 
 export OPENSSL_ROOT_DIR="${PREFIX}"
 
@@ -80,9 +87,11 @@ EOF
 cmake ${CMAKE_ARGS} \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
-    -DOVERRIDE_GIT_DESCRIBE="${DUCKDB_BUILD_VERSION}" \
+    -DOVERRIDE_GIT_DESCRIBE="v${PKG_VERSION}" \
+    -DGIT_COMMIT_HASH="d54cbbe3df" \
+    -DEXTENSION_DIRECTORIES="~/.duckdb/extensions;$PREFIX/duckdb/extensions;" \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
     ..
 
-ninja
+ninja -j"${CPU_COUNT}"
 ninja install

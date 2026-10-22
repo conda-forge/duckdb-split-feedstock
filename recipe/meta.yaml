@@ -15,7 +15,7 @@ source:
       - patches/0006-Install-.h-headers.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -25,7 +25,7 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
-    - mold      # [linux64]
+    - lld {{ cxx_compiler_version }}.*  # [linux]
   host:
     - openssl
     - libcurl
@@ -44,7 +44,7 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
-        - mold      # [linux64]
+        - lld {{ cxx_compiler_version }}.*  # [linux]
       host:
         - openssl
         - libcurl
@@ -64,7 +64,7 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
-        - mold      # [linux64]
+        - lld {{ cxx_compiler_version }}.*  # [linux]
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -82,7 +82,7 @@ outputs:
         - {{ compiler('cxx') }}
         - cmake
         - ninja
-        - mold      # [linux64]
+        - lld {{ cxx_compiler_version }}.*  # [linux]
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
       run:
@@ -104,7 +104,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - mold      # [linux64]
+        - lld {{ cxx_compiler_version }}.*  # [linux]
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
@@ -124,7 +124,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - mold      # [linux64]
+        - lld {{ cxx_compiler_version }}.*  # [linux]
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
@@ -135,7 +135,8 @@ outputs:
         - exit 0
   - name: duckdb-extension-tpcds
     build:
-      binary_relocation: false
+      binary_relocation: false  # [osx]
+      binary_relocation: true   # [linux]
     script: install-extension.sh
     requirements:
       build:
@@ -144,7 +145,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - mold      # [linux64]
+        - lld {{ cxx_compiler_version }}.*  # [linux]
         - python *
         - macholib
       host:
@@ -160,7 +161,8 @@ outputs:
   - name: duckdb-extension-httpfs
     script: install-extension.sh
     build:
-      binary_relocation: false
+      binary_relocation: false  # [osx]
+      binary_relocation: true   # [linux]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -168,7 +170,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - mold      # [linux64]
+        - lld {{ cxx_compiler_version }}.*  # [linux]
         - python *
         - macholib
       host:
@@ -186,7 +188,8 @@ outputs:
   - name: duckdb-extension-fts
     script: install-extension.sh
     build:
-      binary_relocation: false
+      binary_relocation: false  # [osx]
+      binary_relocation: true   # [linux]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -194,7 +197,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - mold      # [linux64]
+        - lld {{ cxx_compiler_version }}.*  # [linux]
         - python *
         - macholib
       host:
@@ -210,7 +213,8 @@ outputs:
         - jq
   - name: duckdb-extension-tpch
     build:
-      binary_relocation: false
+      binary_relocation: false  # [osx]
+      binary_relocation: true   # [linux]
     script: install-extension.sh
     requirements:
       build:
@@ -219,7 +223,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - mold      # [linux64]
+        - lld {{ cxx_compiler_version }}.*  # [linux]
         - python *
         - macholib
       host:
@@ -234,7 +238,8 @@ outputs:
         - jq
   - name: duckdb-extension-ducklake
     build:
-      binary_relocation: false
+      binary_relocation: false  # [osx]
+      binary_relocation: true   # [linux]
     script: install-extension.sh
     requirements:
       build:
@@ -243,7 +248,7 @@ outputs:
         - {{ stdlib("c") }}
         - cmake
         - ninja
-        - mold      # [linux64]
+        - lld {{ cxx_compiler_version }}.*  # [linux]
         - python *
         - macholib
       host:
@@ -251,7 +256,6 @@ outputs:
         - croaring
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
-        - croaring
     test:
       commands:
         - {{ RECIPE_DIR }}/test-extension.sh
