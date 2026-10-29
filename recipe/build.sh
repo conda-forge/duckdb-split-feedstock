@@ -30,8 +30,10 @@ elif [[ "${target_platform}" == "linux-ppc64le" ]]; then
     export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_PLATFORM=linux_ppc64le -DDUCKDB_EXPLICIT_PLATFORM=linux_ppc64le"
 elif [[ "${target_platform}" == "linux-aarch64" ]]; then
     DUCKDB_ARCH='linux_arm64'
+    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_PLATFORM=linux_arm64 -DDUCKDB_EXPLICIT_PLATFORM=linux_arm64"
 elif [[ "${target_platform}" == "osx-64" ]]; then
     DUCKDB_ARCH='osx_amd64'
+    export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_PLATFORM=osx_amd64 -DDUCKDB_EXPLICIT_PLATFORM=osx_amd64"
 elif [[ "${target_platform}" == "osx-arm64" ]]; then
     DUCKDB_ARCH='osx_arm64'
     export CMAKE_ARGS="${CMAKE_ARGS} -DDUCKDB_PLATFORM=osx_arm64 -DDUCKDB_EXPLICIT_PLATFORM=osx_arm64"
