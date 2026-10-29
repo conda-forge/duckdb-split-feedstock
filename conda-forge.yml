@@ -1,5 +1,7 @@
 build_platform:
   linux_ppc64le: linux_64
+  # cross-compile osx-64 from osx-arm64 due to extreme time to build on osx-64
+  osx_64: osx_arm64
   win_arm64: win_64
 conda_build:
   error_overlinking: true
@@ -10,4 +12,5 @@ github:
 provider:
   linux_aarch64: default
   osx_arm64: default
+  win_64: github_actions
 test: native_and_emulated
