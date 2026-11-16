@@ -5,8 +5,8 @@ set -euxo pipefail
 mkdir -p build
 pushd build
 
-# c++std=23 is used upstream for DuckDB 2.0.0 and above.
-export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=23"
+# c++std=17 for DuckDB 2.0.0 (c++23 used upstream for future compatibility).
+export CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_CXX_STANDARD=17"
 # quietly ignore deprecated warnings, as they are not actionable for us.
 export CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 
