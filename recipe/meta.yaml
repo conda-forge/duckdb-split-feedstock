@@ -15,7 +15,7 @@ source:
       - patches/0006-Install-.h-headers.patch
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win]
 
 requirements:
