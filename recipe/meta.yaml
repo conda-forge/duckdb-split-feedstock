@@ -45,10 +45,6 @@ outputs:
         - cmake
         - ninja
         - lld {{ cxx_compiler_version }}.*  # [linux]
-      host:
-        - openssl
-        - libcurl
-        - croaring
     test:
       commands:
         - test -f $PREFIX/lib/libduckdb${SHLIB_EXT}
@@ -179,6 +175,8 @@ outputs:
         - libcurl
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
+        - openssl
+        - libcurl
     test:
       commands:
         - {{ RECIPE_DIR }}/test-extension.sh
@@ -202,7 +200,6 @@ outputs:
         - macholib
       host:
         - {{ pin_subpackage("libduckdb", exact=True) }}
-        - openssl
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
     test:
@@ -256,6 +253,7 @@ outputs:
         - croaring
       run:
         - {{ pin_subpackage("libduckdb", exact=True) }}
+        - croaring
     test:
       commands:
         - {{ RECIPE_DIR }}/test-extension.sh
