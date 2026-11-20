@@ -90,7 +90,7 @@ cmake ${CMAKE_ARGS} \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$(pwd)/dist \
     -DOVERRIDE_GIT_DESCRIBE="v${PKG_VERSION}" \
-    -DGIT_COMMIT_HASH="d54cbbe3df" \
+    -DGIT_COMMIT_HASH="8d78114e90" \
     -DEXTENSION_DIRECTORIES="~/.duckdb/extensions;$PREFIX/duckdb/extensions;" \
     -DDUCKDB_EXTENSION_CONFIGS="$PWD/bundled_extensions.cmake" \
     ..
