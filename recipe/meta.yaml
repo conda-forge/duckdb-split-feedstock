@@ -1,5 +1,5 @@
 {% set name = "duckdb" %}
-{% set version = "2.0.0" %}
+{% set version = "2.0.1" %}
 
 package:
   name: {{ name|lower }}-split
@@ -8,14 +8,14 @@ package:
 source:
     # (!!) Please also update the git used for OVERRIDE_GIT_DESCRIBE in the build scripts.
   - url: https://github.com/duckdb/duckdb/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 7e89053255046bfb26afbd7f524a2fb84df7dbef496aa911ea35e4a1182fdc00
+    sha256: 1deae9d4917bd069c46c25c6ddbe51a2ef06cc7c12e6a10132af4fa0fb834a14
     patches:
       - patches/0001-Dynamically-link-the-cli.patch
       - patches/0002-Make-extensions-prefix-free.patch
       - patches/0006-Install-.h-headers.patch
 
 build:
-  number: 3
+  number: 0
   skip: true  # [win]
 
 requirements:
@@ -132,7 +132,7 @@ outputs:
   - name: duckdb-extension-tpcds
     build:
       binary_relocation: false  # [osx]
-      binary_relocation: true   # [linux]
+      binary_relocation: true  # [linux]
     script: install-extension.sh
     requirements:
       build:
@@ -158,7 +158,7 @@ outputs:
     script: install-extension.sh
     build:
       binary_relocation: false  # [osx]
-      binary_relocation: true   # [linux]
+      binary_relocation: true  # [linux]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -187,7 +187,7 @@ outputs:
     script: install-extension.sh
     build:
       binary_relocation: false  # [osx]
-      binary_relocation: true   # [linux]
+      binary_relocation: true  # [linux]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -211,7 +211,7 @@ outputs:
   - name: duckdb-extension-tpch
     build:
       binary_relocation: false  # [osx]
-      binary_relocation: true   # [linux]
+      binary_relocation: true  # [linux]
     script: install-extension.sh
     requirements:
       build:
@@ -236,7 +236,7 @@ outputs:
   - name: duckdb-extension-ducklake
     build:
       binary_relocation: false  # [osx]
-      binary_relocation: true   # [linux]
+      binary_relocation: true  # [linux]
     script: install-extension.sh
     requirements:
       build:
